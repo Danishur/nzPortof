@@ -177,7 +177,7 @@ async function handleFormSubmit(e) {
     if (response.ok) {
       // Show success message
       formMessage.textContent =
-        "Pesan berhasil dikirim! Saya akan membalas email Anda sesegera mungkin.";
+        "Message sent successfully! I will reply to your email as soon as possible.";
       formMessage.className = "form-message success";
       formMessage.style.display = "block";
 
@@ -194,7 +194,7 @@ async function handleFormSubmit(e) {
   } catch (error) {
     // Show error message
     formMessage.textContent =
-      "Maaf, terjadi kesalahan. Silakan coba lagi atau hubungi saya langsung di urneizzhe@gmail.com";
+      "Sorry, an error occurred. Please try again or contact me directly at urneizzhe@gmail.com";
     formMessage.className = "form-message error";
     formMessage.style.display = "block";
 

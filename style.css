@@ -248,6 +248,10 @@ body {
   transition: var(--transition);
 }
 
+.dot {
+     color: var(--dark-color);
+}
+
 /* Hero Section */
 .hero {
   padding-top: 120px;
@@ -281,12 +285,12 @@ body {
 
 /* Muncul dari bawah */
 #greetings.enter {
-  animation: fadeUpIn 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: fadeUpIn 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 /* Menghilang ke atas */
 #greetings.exit {
-  animation: fadeUpOut 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: fadeUpOut 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 /* Keyframes */
