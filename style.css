@@ -263,12 +263,53 @@ body {
   gap: 50px;
   align-items: center;
 }
-
-.hero-subtitle {
-  font-size: var(--font-lg);
+#greetings {
+  display: inline-block;
   color: var(--primary-color);
-  margin-bottom: 10px;
+  font-size: var(--font-lg);
   font-weight: 500;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+#greeting2 {
+  display: inline-block;
+  font-size: var(--font-lg);
+  font-weight: 500;
+}
+
+
+/* Muncul dari bawah */
+#greetings.enter {
+  animation: fadeUpIn 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Menghilang ke atas */
+#greetings.exit {
+  animation: fadeUpOut 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Keyframes */
+@keyframes fadeUpIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeUpOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
 }
 
 .hero-title {
@@ -452,97 +493,94 @@ body {
 .about-image-container:hover img {
   transform: scale(1.05);
 }
-/* ===== SKILLS SECTION ===== */
-.skills-container {
+/* Konsep CSS untuk Tampilan Baru */ /* Section */
+.skills {
+  padding: 90px 0;
+  background: radial-gradient(circle at top, #1b1b1b, #0f0f0f);
+}
+
+/* Title */
+.section-title {
+  text-align: center;
+  font-size: 2.4rem;
+  color: #ff8c1a;
+  margin-bottom: 60px;
+  letter-spacing: 1px;
+}
+
+/* Grid */
+.skills-grid {
+  max-width: 900px;
+  margin: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 30px;
+  animation: fadeUp 1.2s ease forwards;
 }
 
-.skill-category {
-  padding: 28px;
-  border-radius: 18px;
-  background: var(--card-bg);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  transition: 0.3s ease;
-}
-
-.skill-category:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
-}
-
-.skill-category-title {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 1.3rem;
-  margin-bottom: 24px;
-  color: var(--primary-color);
-}
-
+/* Skill Card */
 .skill-item {
-  margin-bottom: 20px;
+  background: rgba(255, 140, 26, 0.05);
+  border: 1px solid rgba(255, 140, 26, 0.18);
+  border-radius: 18px;
+  padding: 24px 12px;
+  text-align: center;
+  transition: all 0.35s ease;
 }
 
-.skill-item:last-child {
-  margin-bottom: 0;
+/* Icon */
+.skill-item i {
+  font-size: 3rem;
+  color: #ff8c1a;
+  display: block;
+  margin-bottom: 12px;
+  animation: floatUpDown 4s ease-in-out infinite;
 }
 
-.skill-info {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
-  font-weight: 600;
+/* Text */
+.skill-item span {
+  font-size: 0.95rem;
+  letter-spacing: 0.4px;
+  color: #e0e0e0;
 }
 
-.skill-bar {
-  height: 11px;
-  border-radius: 30px;
-  background: rgba(0, 0, 0, 0.08);
-  overflow: hidden;
+/* Hover */
+.skill-item:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 140, 26, 0.12);
+  box-shadow: 0 5px 7px rgba(255, 140, 26, 0.35);
 }
 
-[data-theme="dark"] .skill-bar {
-  background: rgba(255, 255, 255, 0.1);
+/* Hover icon stronger */
+.skill-item:hover i {
+  color: #ffffff;
 }
 
-.skill-progress {
-  height: 100%;
-  width: 0;
-  border-radius: 30px;
-  background: linear-gradient(
-    90deg,
-    var(--primary-color),
-    var(--secondary-color)
-  );
-  transition: width 1.4s ease;
-  position: relative;
+/* Keyframes */
+@keyframes floatUpDown {
+  0% {
+    transform: translateY(5px);
+  }
+  50% {
+    transform: translateY(-13px);
+  }
+  100% {
+    transform: translateY(5px);
+  }
 }
 
-.skill-progress::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255, 255, 255, 0.4),
-    transparent
-  );
-  animation: shine 2.5s infinite;
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.skill-name {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.skill-name i {
-  font-size: 1.3rem;
-}
-
+/* Anda perlu menyertakan Devicons/Font Awesome CSS library agar ikon berfungsi */
 @keyframes shine {
   0% {
     transform: translateX(-100%);

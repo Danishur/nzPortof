@@ -37,11 +37,7 @@
     <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico" />
 
     <!-- logo -->
-    <link
-      rel="icon"
-      sizes="180x180"
-      href="assets/images/logo.jpg"
-    />
+    <link rel="icon" sizes="180x180" href="assets/images/logo.jpg" />
     <!-- CSS -->
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -87,13 +83,102 @@
       <i class="fas fa-moon"></i>
       <i class="fas fa-sun"></i>
     </button>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const greetings = [
+          // Global / Umum
+          "Hello", // English
+          "Hi", // English (casual)
+
+          // Asia
+          "Halo", // Indonesian
+          "Selamat", // Malay (casual greeting)
+          "สวัสดี", // Thai (Sawasdee)
+          "Xin chào", // Vietnamese
+          "こんにちは", // Japanese (Konnichiwa)
+          "こんばんは", // Japanese (Good evening)
+          "안녕하세요", // Korean (Annyeonghaseyo)
+          "你好", // Chinese (Ni hao)
+          "नमस्ते", // Hindi (Namaste)
+          "હેલો", // Gujarati
+          "ਸਤ ਸ੍ਰੀ ਅਕਾਲ", // Punjabi
+          "سلام", // Persian / Urdu
+
+          // Timur Tengah
+          "السلام عليكم", // Arabic
+          "مرحبا", // Arabic (Marhaban)
+          "שלום", // Hebrew (Shalom)
+
+          // Eropa Barat
+          "Hola", // Spanish
+          "Buenos días", // Spanish
+          "Bonjour", // French
+          "Salut", // French (casual)
+          "Ciao", // Italian
+          "Salve", // Italian (formal)
+          "Olá", // Portuguese
+          "Hallo", // German
+          "Guten Tag", // German (formal)
+          "Hoi", // Dutch
+          "Hej", // Swedish / Danish
+          "Hei", // Norwegian / Finnish
+
+          // Eropa Timur
+          "Cześć", // Polish
+          "Dzień dobry", // Polish (formal)
+          "Ahoj", // Czech / Slovak
+          "Zdravo", // Balkan
+          "Pozdrav", // Balkan
+
+          // Afrika
+          "Jambo", // Swahili
+          "Habari", // Swahili
+          "Sawubona", // Zulu
+          "Salaam", // African Arabic/Swahili mix
+
+          // Lainnya
+          "Olá Mundo", // Portuguese (dev-style)
+          "Hello World", // Developer vibe 😄
+        ];
+
+        const el = document.getElementById("greetings");
+        let i = 0;
+
+        const showDuration = 2000; // teks terlihat
+        const animDuration = 1000; // durasi animasi
+
+        function animateGreeting() {
+          // Set teks baru
+          el.textContent = greetings[i];
+          i = (i + 1) % greetings.length;
+
+          // Masuk
+          el.classList.remove("exit");
+          el.classList.add("enter");
+
+          // Setelah terlihat → keluar
+          setTimeout(() => {
+            el.classList.remove("enter");
+            el.classList.add("exit");
+          }, showDuration);
+
+          // Loop lagi setelah selesai
+          setTimeout(animateGreeting, showDuration + animDuration);
+        }
+
+        animateGreeting();
+      });
+    </script>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
       <div class="container">
         <div class="hero-content">
           <div class="hero-text">
-            <h4 class="hero-subtitle">Hello, I'm</h4>
+            <h4 class="hero-subtitle">
+              <span id="greetings">Hello</span><span id="greeting2">, I'm</span>
+            </h4>
+
             <h1 class="hero-title">Danish Ubaidillah Ramadhan</h1>
             <h2 class="hero-tagline">Software Developer & Global Explorer</h2>
             <p class="hero-description">
@@ -179,180 +264,62 @@
         </div>
       </div>
     </section>
-    <!-- Skills Section -->
     <section id="skills" class="skills section">
       <div class="container">
-        <h2 class="section-title">Skill & Technology</h2>
+        <h2 class="section-title">Skills & Technologies</h2>
 
-        <div class="skills-container">
-          <!-- Frontend -->
-          <div class="skill-category">
-            <h3 class="skill-category-title">
-              <i class="fas fa-paint-brush"></i> Frontend
-            </h3>
-
-            <div class="skill-item">
-              <div class="skill-info">
-                <span class="skill-name">
-                  <i class="devicon-html5-plain colored"></i> HTML
-                </span>
-                <span>100%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-progress" data-width="100"></div>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-info">
-                <span class="skill-name">
-                  <i class="devicon-css3-plain colored"></i> CSS
-                </span>
-                <span>90%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-progress" data-width="90"></div>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-info">
-                <span class="skill-name">
-                  <i class="devicon-javascript-plain colored"></i> JavaScript
-                </span>
-                <span>85%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-progress" data-width="85"></div>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-info">
-                <span class="skill-name">
-                  <i class="devicon-react-original colored"></i> React
-                </span>
-                <span>80%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-progress" data-width="80"></div>
-              </div>
-            </div>
+        <div class="skills-grid">
+          <div class="skill-item">
+            <i class="devicon-html5-plain"></i>
+            <span>HTML</span>
           </div>
-
-          <!-- Backend & Mobile -->
-          <div class="skill-category">
-            <h3 class="skill-category-title">
-              <i class="fas fa-server"></i> Backend & Mobile
-            </h3>
-
-            <div class="skill-item">
-              <div class="skill-info">
-                <span class="skill-name">
-                  <i class="devicon-php-plain colored"></i> PHP
-                </span>
-                <span>85%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-progress" data-width="85"></div>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-info">
-                <span class="skill-name">
-                  <i class="devicon-laravel-plain colored"></i> Laravel
-                </span>
-                <span>85%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-progress" data-width="85"></div>
-              </div>
-            </div>
-
-            <!-- Dart (NEW) -->
-            <div class="skill-item">
-              <div class="skill-info">
-                <span class="skill-name">
-                  <i class="devicon-dart-plain colored"></i> Dart
-                </span>
-                <span>90%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-progress" data-width="90"></div>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-info">
-                <span class="skill-name">
-                  <i class="devicon-flutter-plain colored"></i> Flutter
-                </span>
-                <span>90%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-progress" data-width="90"></div>
-              </div>
-            </div>
+          <div class="skill-item">
+            <i class="devicon-css3-plain"></i>
+            <span>CSS</span>
           </div>
-
-          <!-- Framework & Tools -->
-          <div class="skill-category">
-            <h3 class="skill-category-title">
-              <i class="fas fa-tools"></i> Framework & Tools
-            </h3>
-
-            <div class="skill-item">
-              <div class="skill-info">
-                <span class="skill-name">
-                  <i class="devicon-bootstrap-plain colored"></i> Bootstrap
-                </span>
-                <span>90%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-progress" data-width="90"></div>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-info">
-                <span class="skill-name">
-                  <i class="devicon-tailwindcss-plain colored"></i> Tailwind CSS
-                </span>
-                <span>85%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-progress" data-width="85"></div>
-              </div>
-            </div>
+          <div class="skill-item">
+            <i class="devicon-javascript-plain"></i>
+            <span>JavaScript</span>
+          </div>
+          <div class="skill-item">
+            <i class="devicon-react-original"></i>
+            <span>React</span>
+          </div>
+          <div class="skill-item">
+            <i class="devicon-php-plain"></i>
+            <span>PHP</span>
+          </div>
+          <div class="skill-item">
+            <i class="devicon-laravel-plain"></i>
+            <span>Laravel</span>
+          </div>
+          <div class="skill-item">
+            <i class="devicon-dart-plain"></i>
+            <span>Dart</span>
+          </div>
+          <div class="skill-item">
+            <i class="devicon-flutter-plain"></i>
+            <span>Flutter</span>
+          </div>
+          <div class="skill-item">
+            <i class="devicon-nextjs-plain"></i>
+            <span>Next.js</span>
+          </div>
+          <div class="skill-item">
+            <i class="devicon-firebase-plain"></i>
+            <span>Firebase</span>
+          </div>
+          <div class="skill-item">
+            <i class="devicon-bootstrap-plain"></i>
+            <span>Bootstrap</span>
+          </div>
+          <div class="skill-item">
+            <i class="devicon-tailwindcss-plain"></i>
+            <span>Tailwind CSS</span>
           </div>
         </div>
       </div>
     </section>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const skillBars = document.querySelectorAll(".skill-progress");
-
-        if (!skillBars.length) return;
-
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                const bar = entry.target;
-                const value = bar.dataset.width;
-                bar.style.width = value + "%";
-                observer.unobserve(bar);
-              }
-            });
-          },
-          { threshold: 0.3 }
-        );
-
-        skillBars.forEach((bar) => observer.observe(bar));
-      });
-    </script>
 
     <!-- Projects Section -->
     <section id="projects" class="projects section">
@@ -403,7 +370,6 @@
                 <span class="tech-tag">Firebase</span>
                 <span class="tech-tag">Node.js</span>
               </div>
-
               <div class="project-links">
                 <a
                   href="https://github.com/Danishur/e-commerce_app"
@@ -497,9 +463,9 @@
 
               <div class="project-tech">
                 <span class="tech-tag">Flutter</span>
-                <span class="tech-tag">Dart</span>
                 <span class="tech-tag">Firebase</span>
                 <span class="tech-tag">SQLite</span>
+                <span class="tech-tag">OCR</span>
               </div>
 
               <div class="project-links">
