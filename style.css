@@ -614,7 +614,7 @@ body {
     background-color: var(--card-bg);
     border-radius: 20px;
     padding: 60px 40px;
-    margin: 40px 0;
+    margin: 20px 0;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 107, 53, 0.1);
     transition: var(--transition);
@@ -629,7 +629,7 @@ body {
 .experience-container .section-title {
     text-align: left;
     font-size: 2.8rem;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 .experience-container .section-title::after {
@@ -933,11 +933,6 @@ body {
         padding: 5px 12px;
         font-size: 0.8rem;
     }
-}
-
-/* Experience section spacing */
-#experience {
-    padding: 80px 0;
 }
 
 /* Keyframes */
