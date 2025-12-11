@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -38,8 +38,255 @@
 
     <!-- logo -->
     <link rel="icon" sizes="180x180" href="assets/images/logo.jpg" />
+
     <!-- CSS -->
     <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Timeline Item Styling - Matching your portfolio theme */
+      #experience .timeline-item {
+        display: flex;
+        margin-bottom: 30px;
+        position: relative;
+      }
+
+      #experience .timeline-icon {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--secondary-color) 100%
+        );
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+        flex-shrink: 0;
+        z-index: 2;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      #experience .timeline-icon i {
+        font-size: 1.3rem;
+      }
+
+      #experience .timeline-content {
+        background-color: var(--card-bg);
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: var(--shadow);
+        border-left: 5px solid var(--primary-color);
+        flex-grow: 1;
+        display: flex;
+        justify-content: space-between;
+        gap: 30px;
+        transition: var(--transition);
+      }
+
+      #experience .timeline-content:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      #experience .timeline-main {
+        flex: 1;
+      }
+
+      #experience .job-header {
+        margin-bottom: 15px;
+      }
+
+      #experience .job-title {
+        color: var(--text-color);
+        margin: 0 0 8px 0;
+        font-size: 1.5rem;
+        font-weight: 700;
+        font-family: "Space Grotesk", sans-serif;
+      }
+
+      #experience .company {
+        color: var(--gray-color);
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        font-family: "Space Grotesk", sans-serif;
+      }
+
+      #experience .company i {
+        margin-right: 8px;
+        color: var(--gray-color);
+      }
+
+      #experience .description {
+        color: var(--text-color);
+        line-height: 1.6;
+        margin-bottom: 20px;
+        font-size: 1rem;
+        font-family: "Space Grotesk", sans-serif;
+        opacity: 0.9;
+      }
+
+      #experience .tags-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 15px;
+      }
+
+      #experience .tag {
+        background-color: rgba(255, 107, 53, 0.1);
+        color: var(--primary-color);
+        padding: 6px 15px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        font-family: "Space Grotesk", sans-serif;
+        transition: all 0.2s ease;
+      }
+
+      #experience .tag:hover {
+        background-color: rgba(255, 107, 53, 0.2);
+        transform: translateY(-2px);
+      }
+
+      #experience .timeline-side {
+        width: 220px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      #experience .volunteer-section {
+        margin-bottom: 20px;
+      }
+
+      #experience .volunteer-badge {
+        background-color: var(--card-bg);
+        border-radius: 10px;
+        padding: 12px 15px;
+        margin-bottom: 20px;
+        text-align: center;
+        border: 1px solid rgba(255, 107, 53, 0.2);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      #experience .volunteer-label {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+        font-family: "Space Grotesk", sans-serif;
+      }
+
+      #experience .volunteer-date {
+        display: block;
+        font-size: 0.95rem;
+        color: var(--text-color);
+        font-weight: 600;
+        font-family: "Space Grotesk", sans-serif;
+      }
+
+      #experience .stats-container {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+      }
+
+      #experience .stat-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: var(--card-bg);
+        border: 1px solid rgba(255, 107, 53, 0.2);
+        border-radius: 10px;
+        padding: 15px 10px;
+        min-width: 80px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+      }
+
+      #experience .stat-box:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.08);
+      }
+
+      #experience .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        line-height: 1;
+        margin-bottom: 5px;
+        font-family: "Space Grotesk", sans-serif;
+      }
+
+      #experience .stat-label {
+        font-size: 0.75rem;
+        color: var(--gray-color);
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-family: "Space Grotesk", sans-serif;
+      }
+
+      #experience .duration-box {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--secondary-color) 100%
+        );
+        border-radius: 10px;
+        padding: 12px 15px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      #experience .duration-box span {
+        color: white;
+        font-size: 0.95rem;
+        font-weight: 600;
+        font-family: "Space Grotesk", sans-serif;
+      }
+
+      #experience .duration-box i {
+        margin-right: 8px;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        #experience .timeline-item {
+          flex-direction: column;
+        }
+
+        #experience .timeline-icon {
+          margin-right: 0;
+          margin-bottom: 15px;
+          align-self: flex-start;
+        }
+
+        #experience .timeline-content {
+          flex-direction: column;
+          gap: 20px;
+        }
+
+        #experience .timeline-side {
+          width: 100%;
+          border-left: none;
+          border-top: 1px solid rgba(255, 107, 53, 0.2);
+          padding-left: 0;
+          padding-top: 20px;
+        }
+
+        #experience .stats-container {
+          justify-content: center;
+        }
+      }
+    </style>
   </head>
   <body>
     <!-- Header & Navigation -->
@@ -78,6 +325,7 @@
         </nav>
       </div>
     </header>
+
     <button
       id="theme-toggle"
       class="theme-toggle"
@@ -86,88 +334,6 @@
       <i class="fas fa-moon"></i>
       <i class="fas fa-sun"></i>
     </button>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const greetings = [
-          // Global / Umum
-          "Hello", // English
-          "Hi", // English (casual)
-
-          // Asia
-          "Halo", // Indonesian
-          "Selamat", // Malay (casual greeting)
-          "สวัสดี", // Thai (Sawasdee)
-          "Xin chào", // Vietnamese
-          "こんにちは", // Japanese (Konnichiwa)
-          "안녕하세요", // Korean (Annyeonghaseyo)
-          "你好", // Chinese (Ni hao)
-          "नमस्ते", // Hindi (Namaste)
-          "હેલો", // Gujarati
-          "ਸਤ ਸ੍ਰੀ ਅਕਾਲ", // Punjabi
-          "سلام", // Persian / Urdu
-
-          // Timur Tengah
-          "السلام عليكم", // Arabic
-          "مرحبا", // Arabic (Marhaban)
-
-          // Eropa Barat
-          "Hola", // Spanish
-          "Buenos días", // Spanish
-          "Bonjour", // French
-          "Ciao", // Italian
-          "Olá", // Portuguese
-          "Hallo", // German
-          "Hoi", // Dutch
-          "Hej", // Swedish / Danish
-          "Hei", // Norwegian / Finnish
-
-          // Eropa Timur
-          "Cześć", // Polish
-          "Ahoj", // Czech / Slovak
-          "Zdravo", // Balkan
-
-          // Afrika
-          "Jambo", // Swahili
-          "Habari", // Swahili
-          "Sawubona", // Zulu
-          "Salaam", // African Arabic/Swahili mix
-
-          // Lainnya
-          "Hello World", // Developer vibe
-
-          //robot
-          "Beep Boop", // Robotic
-          "01001000 01100101 01101100 01101100 01101101111", // Binary for "Hello"
-        ];
-
-        const el = document.getElementById("greetings");
-        let i = 0;
-
-        const showDuration = 2000; // teks terlihat
-        const animDuration = 1000; // durasi animasi
-
-        function animateGreeting() {
-          // Set teks baru
-          el.textContent = greetings[i];
-          i = (i + 1) % greetings.length;
-
-          // Masuk
-          el.classList.remove("exit");
-          el.classList.add("enter");
-
-          // Setelah terlihat → keluar
-          setTimeout(() => {
-            el.classList.remove("enter");
-            el.classList.add("exit");
-          }, showDuration);
-
-          // Loop lagi setelah selesai
-          setTimeout(animateGreeting, showDuration + animDuration);
-        }
-
-        animateGreeting();
-      });
-    </script>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
@@ -264,6 +430,8 @@
         </div>
       </div>
     </section>
+
+    <!-- Skills Section -->
     <section id="skills" class="skills section">
       <div class="container">
         <h2 class="section-title">Skills & Technologies</h2>
@@ -483,101 +651,269 @@
         </div>
       </div>
     </section>
+
     <!-- Experience Section -->
     <section id="experience" class="experience section">
       <div class="container">
-        <h2 class="section-title" id="experience">Experience</h2>
+        <h2 class="section-title">Experience</h2>
         <div class="experience-container">
-             <div  style="display: flex; justify-content: center">
-               <p class="section-subtitle">
-                       As we have a very professional journey, building digital production
-                       and building design teams.
-               </p>
+          <div style="display: flex; justify-content: center">
+            <p class="section-subtitle">
+              As we have a very professional journey, building digital
+              production and building design teams.
+            </p>
           </div>
-          <!-- Experience 1 -->
+
           <div class="timeline">
-                  <div class="timeline-item">
-              <div class="timeline-icon">
-                <i class="fas fa-chalkboard-teacher"></i>
-              </div>
-              <div class="timeline-content">
-                <h3 class="job-title">IT Trainer</h3>
-                <div class="company">
-                  <i class="fas fa-building"></i>
-                  PT. Sidik
-                </div>
-                <span class="period">11/2024 - 13/2024</span>
-                <p class="description">
-                  Delivers 3-day corporate training on HTML, CSS, and JavaScript with hands-on projects for practical workplace application.
-                </p>
-                <div class="tags-container">
-                  <span class="tag">Corporate Training</span>
-                  <span class="tag">HTML</span>
-                  <span class="tag">CSS</span>
-                  <span class="tag">JavaScript</span>
-                </div>
-              </div>
-            </div>
-            <!-- Experience 2 -->
+            <!-- Experience: PT. Sidik -->
             <div class="timeline-item">
               <div class="timeline-icon">
                 <i class="fas fa-chalkboard-teacher"></i>
               </div>
               <div class="timeline-content">
-                <h3 class="job-title">IT Trainer</h3>
-                <div class="company">
-                  <i class="fas fa-building"></i>
-                  SMK Hiro
+                <div class="timeline-main">
+                  <div class="job-header">
+                    <h3 class="job-title">IT Trainer</h3>
+                    <div class="company">
+                      <i class="fas fa-building"></i>
+                      PT. Sidik
+                    </div>
+                  </div>
+
+                  <p class="description">
+                    Delivered comprehensive 3-day corporate training on modern
+                    web development technologies including HTML, CSS, and
+                    JavaScript. Designed hands-on projects and real-world
+                    applications to enhance workplace productivity and digital
+                    skills among corporate professionals.
+                  </p>
+
+                  <div class="tags-container">
+                    <span class="tag">Corporate Training</span>
+                    <span class="tag">HTML</span>
+                    <span class="tag">CSS</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">Professional Development</span>
+                  </div>
                 </div>
-                <span class="period">04/2025 - 06/2025</span>
-                <p class="description">
-                  Teaching a junior high school class of over 50 junior high school students basic web development using HTML, CSS, and JavaScript over 3 days.
-                </p>
-                <div class="tags-container">
-                  <span class="tag">HTML</span>
-                  <span class="tag">CSS</span>
-                  <span class="tag">JavaScript</span>
-                  <span class="tag">Web Development</span>
+
+                <div class="timeline-side">
+                  <div class="volunteer-section">
+                    <div class="volunteer-badge">
+                      <span class="volunteer-label">CORPORATE TRAINING</span>
+                      <span class="volunteer-date">November 2024</span>
+                    </div>
+
+                    <div class="stats-container">
+                      <div class="stat-box">
+                        <div class="stat-number">5+</div>
+                        <div class="stat-label">PROFESSIONALS</div>
+                      </div>
+                      <div class="stat-box">
+                        <div class="stat-number">1</div>
+                        <div class="stat-label">BATCH</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="duration-box">
+                    <span
+                      ><i class="far fa-calendar-alt"></i> Duration: 3
+                      days</span
+                    >
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="separator"></div>
-            <!-- Experience 3 -->
+            <!-- Experience: SMAN 78 Jakarta -->
             <div class="timeline-item">
               <div class="timeline-icon">
                 <i class="fas fa-chalkboard-teacher"></i>
               </div>
               <div class="timeline-content">
-                <h3 class="job-title">IT Trainer</h3>
-                <div class="company">
-                  <i class="fas fa-building"></i>
-                  SMAN 78 Jakarta
+                <div class="timeline-main">
+                  <div class="job-header">
+                    <h3 class="job-title">IT Trainer</h3>
+                    <div class="company">
+                      <i class="fas fa-building"></i>
+                      SMAN 78 Jakarta
+                    </div>
+                  </div>
+
+                  <p class="description">
+                    Facilitated comprehensive web development training for high
+                    school students, teaching HTML, CSS, and JavaScript
+                    fundamentals through interactive, project-based learning.
+                    Designed age-appropriate curriculum that introduced coding
+                    concepts while fostering digital literacy and
+                    problem-solving skills.
+                  </p>
+
+                  <div class="tags-container">
+                    <span class="tag">HTML</span>
+                    <span class="tag">CSS</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">Educational Training</span>
+                    <span class="tag">Web Development</span>
+                  </div>
                 </div>
-                <span class="period">01/2025 - 03/2025</span>
-                <p class="description">
-                  Instructed 5 classes including more than 100 High School students in foundational web development using HTML, CSS and JavaScript for 3 days.
-                </p>
-                <div class="tags-container">
-                  <span class="tag">HTML</span>
-                  <span class="tag">CSS</span>
-                  <span class="tag">JavaScript</span>
-                  <span class="tag">Training</span>
+
+                <div class="timeline-side">
+                  <div class="volunteer-section">
+                    <div class="volunteer-badge">
+                      <span class="volunteer-label">VOLUNTEER</span>
+                      <span class="volunteer-date">January 2025</span>
+                    </div>
+
+                    <div class="stats-container">
+                      <div class="stat-box">
+                        <div class="stat-number">110+</div>
+                        <div class="stat-label">STUDENTS</div>
+                      </div>
+                      <div class="stat-box">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">CLASSES</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="duration-box">
+                    <span
+                      ><i class="far fa-calendar-alt"></i> Duration: 1
+                      week</span
+                    >
+                  </div>
                 </div>
               </div>
             </div>
+            <!-- Experience: SMK Islam Insan Mulia -->
+            <div class="timeline-item">
+              <div class="timeline-icon">
+                <i class="fas fa-chalkboard-teacher"></i>
+              </div>
+              <div class="timeline-content">
+                <div class="timeline-main">
+                  <div class="job-header">
+                    <h3 class="job-title">IT Trainer</h3>
+                    <div class="company">
+                      <i class="fas fa-building"></i>
+                      SMK Islam Insan Mulia
+                    </div>
+                  </div>
 
-            <div class="separator"></div>
+                  <p class="description">
+                    Provided focused web development training to vocational high
+                    school students, delivering practical HTML, CSS, and
+                    JavaScript skills relevant to technical education pathways.
+                    Tailored curriculum to align with vocational school
+                    objectives while building foundational coding competencies.
+                  </p>
 
-         
+                  <div class="tags-container">
+                    <span class="tag">HTML</span>
+                    <span class="tag">CSS</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">Vocational Training</span>
+                    <span class="tag">Technical Education</span>
+                  </div>
+                </div>
 
+                <div class="timeline-side">
+                  <div class="volunteer-section">
+                    <div class="volunteer-badge">
+                      <span class="volunteer-label">VOLUNTEER</span>
+                      <span class="volunteer-date">January 2025</span>
+                    </div>
+
+                    <div class="stats-container">
+                      <div class="stat-box">
+                        <div class="stat-number">33+</div>
+                        <div class="stat-label">STUDENTS</div>
+                      </div>
+                      <div class="stat-box">
+                        <div class="stat-number">1</div>
+                        <div class="stat-label">CLASS</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="duration-box">
+                    <span
+                      ><i class="far fa-calendar-alt"></i> Duration: 3
+                      days</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Experience: SMK Hiro -->
+            <div class="timeline-item">
+              <div class="timeline-icon">
+                <i class="fas fa-chalkboard-teacher"></i>
+              </div>
+              <div class="timeline-content">
+                <div class="timeline-main">
+                  <div class="job-header">
+                    <h3 class="job-title">IT Trainer</h3>
+                    <div class="company">
+                      <i class="fas fa-building"></i>
+                      SMK Hiro
+                    </div>
+                  </div>
+
+                  <p class="description">
+                    Conducted intensive web development workshop for vocational
+                    high school students, providing hands-on training in HTML,
+                    CSS, and JavaScript fundamentals. Designed practical
+                    projects that connected coding concepts with real-world
+                    applications relevant to technical education and industry
+                    needs.
+                  </p>
+
+                  <div class="tags-container">
+                    <span class="tag">HTML</span>
+                    <span class="tag">CSS</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">Vocational Training</span>
+                    <span class="tag">Technical Education</span>
+                    <span class="tag">Web Development</span>
+                  </div>
+                </div>
+
+                <div class="timeline-side">
+                  <div class="volunteer-section">
+                    <div class="volunteer-badge">
+                      <span class="volunteer-label">VOLUNTEER</span>
+                      <span class="volunteer-date">April 2025</span>
+                    </div>
+
+                    <div class="stats-container">
+                      <div class="stat-box">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">STUDENTS</div>
+                      </div>
+                      <div class="stat-box">
+                        <div class="stat-number">1</div>
+                        <div class="stat-label">CLASS</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="duration-box">
+                    <span
+                      ><i class="far fa-calendar-alt"></i> Duration: 3
+                      days</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-
-          <div class="footer-note">
-          </div>
+          <div class="separator"></div>
         </div>
       </div>
     </section>
+
     <!-- Contact Section -->
     <section id="contact" class="contact section">
       <div class="container">
@@ -758,7 +1094,100 @@
         </div>
       </div>
     </footer>
+
     <!-- JavaScript -->
+    <script>
+      // Script for greetings animation
+      document.addEventListener("DOMContentLoaded", () => {
+        const greetings = [
+          // Global / Umum
+          "Hello", // English
+          "Hi", // English (casual)
+
+          // Asia
+          "Halo", // Indonesian
+          "Selamat", // Malay (casual greeting)
+          "สวัสดี", // Thai (Sawasdee)
+          "Xin chào", // Vietnamese
+          "こんにちは", // Japanese (Konnichiwa)
+          "안녕하세요", // Korean (Annyeonghaseyo)
+          "你好", // Chinese (Ni hao)
+          "नमस्ते", // Hindi (Namaste)
+          "હેલો", // Gujarati
+          "ਸਤ ਸ੍ਰੀ ਅਕਾਲ", // Punjabi
+          "سلام", // Persian / Urdu
+
+          // Timur Tengah
+          "السلام عليكم", // Arabic
+          "مرحبا", // Arabic (Marhaban)
+
+          // Eropa Barat
+          "Hola", // Spanish
+          "Buenos días", // Spanish
+          "Bonjour", // French
+          "Ciao", // Italian
+          "Olá", // Portuguese
+          "Hallo", // German
+          "Hoi", // Dutch
+          "Hej", // Swedish / Danish
+          "Hei", // Norwegian / Finnish
+
+          // Eropa Timur
+          "Cześć", // Polish
+          "Ahoj", // Czech / Slovak
+          "Zdravo", // Balkan
+
+          // Afrika
+          "Jambo", // Swahili
+          "Habari", // Swahili
+          "Sawubona", // Zulu
+          "Salaam", // African Arabic/Swahili mix
+
+          // Lainnya
+          "Hello World", // Developer vibe
+
+          //robot
+          "Beep Boop", // Robotic
+          "01001000 01100101 01101100 01101100 01101101111", // Binary for "Hello"
+        ];
+
+        const el = document.getElementById("greetings");
+        let i = 0;
+
+        const showDuration = 2000; // teks terlihat
+        const animDuration = 1000; // durasi animasi
+
+        function animateGreeting() {
+          // Set teks baru
+          el.textContent = greetings[i];
+          i = (i + 1) % greetings.length;
+
+          // Masuk
+          el.classList.remove("exit");
+          el.classList.add("enter");
+
+          // Setelah terlihat → keluar
+          setTimeout(() => {
+            el.classList.remove("enter");
+            el.classList.add("exit");
+          }, showDuration);
+
+          // Loop lagi setelah selesai
+          setTimeout(animateGreeting, showDuration + animDuration);
+        }
+
+        if (el) {
+          animateGreeting();
+        }
+
+        // Set current year in footer
+        const currentYear = new Date().getFullYear();
+        const yearElement = document.getElementById("current-year");
+        if (yearElement) {
+          yearElement.textContent = currentYear;
+        }
+      });
+    </script>
     <script src="script.js"></script>
   </body>
 </html>

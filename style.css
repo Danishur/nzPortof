@@ -773,6 +773,13 @@ body {
     margin-top: 15px;
 }
 
+.duration {
+    font-size: 0.9rem;
+    color: var(--gray-color);
+    margin-left: auto;
+    padding-top: 1rem;
+}
+
 .tag {
     background: linear-gradient(90deg, rgba(255, 107, 53, 0.08), rgba(255, 107, 53, 0.04));
     color: var(--primary-color);
