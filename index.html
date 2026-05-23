@@ -1029,6 +1029,54 @@
         color: var(--text);
       }
 
+      /* ── SKILL PROGRESS BAR (tambahan) ── */
+      .skill-item,
+      .skill-item2 {
+        padding-bottom: 16px;
+      }
+
+      .skill-bar-wrap {
+        width: 100%;
+        height: 4px;
+        border-radius: 99px;
+        overflow: hidden;
+        margin-top: 10px;
+        margin-bottom: 4px;
+      }
+      [data-theme="light"] .skill-bar-wrap {
+        background: rgba(0, 0, 0, 0.08);
+      }
+      [data-theme="dark"] .skill-bar-wrap {
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .skill-item .skill-bar-fill {
+        height: 100%;
+        border-radius: 99px;
+        background: var(--primary);
+        width: 0%;
+        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1) var(--delay, 0s);
+      }
+      .skill-item2 .skill-bar-fill {
+        height: 100%;
+        border-radius: 99px;
+        background: var(--cyan);
+        width: 0%;
+        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1) var(--delay, 0s);
+      }
+      .skill-pct {
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        display: block;
+        text-align: right;
+      }
+      .skill-item .skill-pct {
+        color: var(--primary);
+      }
+      .skill-item2 .skill-pct {
+        color: var(--cyan);
+      }
+
       /* ── SKILLS ── */
       .skills-section {
         position: relative;
@@ -1078,6 +1126,86 @@
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
         gap: 24px;
+      }
+      .skills-grid-new {
+        max-width: 900px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 20px;
+      }
+
+      .skill-card {
+        border-radius: 16px;
+        padding: 22px 14px 16px;
+        text-align: center;
+        transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        cursor: default;
+        backdrop-filter: blur(6px);
+      }
+      [data-theme="dark"] .skill-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.09);
+      }
+      [data-theme="light"] .skill-card {
+        background: rgba(255, 255, 255, 0.75);
+        border: 1px solid rgba(0, 0, 0, 0.09);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+      }
+      .skill-icon {
+        font-size: 2.4rem;
+        display: block;
+        margin-bottom: 10px;
+        color: var(--primary);
+        animation: skillFloat 4s ease-in-out infinite;
+      }
+      .skill-card:nth-child(even) .skill-icon {
+        animation: skillFloat2 4s ease-in-out infinite;
+      }
+      .skill-name {
+        font-size: 0.82rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        color: var(--text-muted);
+        margin-bottom: 10px;
+        display: block;
+        transition: color 0.3s;
+      }
+      .skill-bar-wrap {
+        width: 100%;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 99px;
+        overflow: hidden;
+        margin-bottom: 5px;
+      }
+      [data-theme="light"] .skill-bar-wrap {
+        background: rgba(0, 0, 0, 0.08);
+      }
+      .skill-bar-fill {
+        height: 100%;
+        border-radius: 99px;
+        background: var(--primary);
+        width: 0%;
+        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1) var(--delay, 0s);
+      }
+      .skill-pct {
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        display: block;
+        text-align: right;
+      }
+      .skill-card:hover {
+        transform: translateY(-8px) scale(1.04);
+        border-color: rgba(255, 107, 53, 0.5);
+        box-shadow: 0 8px 24px rgba(255, 107, 53, 0.2);
+      }
+      .skill-card:hover .skill-name {
+        color: var(--primary);
+      }
+      .skill-card:hover .skill-bar-fill {
+        background: var(--primary);
       }
       .skill-item,
       .skill-item2 {
@@ -2117,13 +2245,13 @@
         }
       }
       /* Hide default cursor */
-      body,
+      /* body,
       a,
       button,
       input,
       textarea {
         cursor: none;
-      }
+      } */
 
       /* Canvas */
       #cursor-trail {
@@ -2240,7 +2368,6 @@
         transform: translate(-50%, -50%);
       }
 
-      /* pakai animasi spin kamu yang sudah ada */
       @keyframes spin {
         from {
           transform: translate(-50%, -50%) rotate(0deg);
@@ -2500,7 +2627,7 @@
             </div>
             <div class="hero-stats">
               <div>
-                <div class="hero-stat-num orange">3+</div>
+                <div class="hero-stat-num orange">4+</div>
                 <div class="hero-stat-label">Projects</div>
               </div>
               <div>
@@ -2604,19 +2731,52 @@
                 Southeast Asia — and every experience shapes how I empathize,
                 design, and build.
               </p>
+              <p>
+                Countries visited:
+                <strong>Malaysia</strong>, <strong>China</strong>,
+                <strong>Egypt</strong>, <strong>Morocco</strong>,
+                <strong>Netherlands</strong>, <strong>Belgium</strong>,
+                <strong>Germany</strong>, <strong>Czech Republic</strong>,
+                <strong>Austria</strong>, <strong>Slovakia</strong>,
+                <strong>Hungary</strong>, <strong>Serbia</strong>,
+                <strong>Bulgaria</strong>
+                <strong>Turkey</strong>, <strong>Kuwait</strong>,
+                <strong>Saudi Arabia</strong>, <strong>India</strong>,
+                <strong>Nepal</strong>, <strong>Thailand</strong>,
+                <strong>Laos</strong>, <strong>Vietnam</strong>,
+                <strong>Hong Kong &amp; Macau.</strong>,
+              </p>
             </div>
             <div class="about-highlights reveal reveal-delay-2">
               <div class="hl-item">
                 <i class="fas fa-layer-group orange"></i>
                 <h4>Full-Stack Dev</h4>
+                <div class="hero-stat-label">Web & Mobile</div>
               </div>
               <div class="hl-item">
                 <i class="fas fa-graduation-cap cyan"></i>
                 <h4>IDN Backpacker</h4>
+                <div class="hero-stat-label">Sentul, Indonesia</div>
               </div>
               <div class="hl-item">
-                <i class="fas fa-globe-asia orange"></i>
+                <i class="fas fa-passport orange"></i>
                 <h4>20+ Countries</h4>
+                <div class="hero-stat-label">Global Explorer</div>
+              </div>
+              <div class="hl-item">
+                <i class="fas fa-users orange"></i>
+                <h4>Team Player</h4>
+                <div class="hero-stat-label">Collaborative</div>
+              </div>
+              <div class="hl-item">
+                <i class="fas fa-laptop-code orange"></i>
+                <h4>Tech Trainer</h4>
+                <div class="hero-stat-label">Grow Together</div>
+              </div>
+              <div class="hl-item">
+                <i class="fas fa-book-reader orange"></i>
+                <h4>Knowledge Sharer</h4>
+                <div class="hero-stat-label">Learn & Teach</div>
               </div>
             </div>
           </div>
@@ -2638,41 +2798,101 @@
           </p>
         </div>
         <div class="skills-grid-old">
-          <div class="skill-item reveal">
-            <i class="devicon-html5-plain"></i><span>HTML5</span>
+          <div class="skill-item reveal" data-pct="99">
+            <i class="devicon-html5-plain"></i>
+            <span>HTML5</span>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-fill" style="--delay: 0s"></div>
+            </div>
+            <span class="skill-pct">99%</span>
           </div>
-          <div class="skill-item2 reveal reveal-delay-1">
-            <i class="devicon-css3-plain"></i><span>CSS3</span>
+          <div class="skill-item2 reveal reveal-delay-1" data-pct="95">
+            <i class="devicon-css3-plain"></i>
+            <span>CSS3</span>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-fill" style="--delay: 0.1s"></div>
+            </div>
+            <span class="skill-pct">95%</span>
           </div>
-          <div class="skill-item reveal reveal-delay-2">
-            <i class="devicon-javascript-plain"></i><span>JavaScript</span>
+          <div class="skill-item reveal reveal-delay-2" data-pct="87">
+            <i class="devicon-javascript-plain"></i>
+            <span>JavaScript</span>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-fill" style="--delay: 0.15s"></div>
+            </div>
+            <span class="skill-pct">87%</span>
           </div>
-          <div class="skill-item2 reveal reveal-delay-3">
-            <i class="devicon-react-original"></i><span>React</span>
+          <div class="skill-item2 reveal reveal-delay-3" data-pct="75">
+            <i class="devicon-react-original"></i>
+            <span>React</span>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-fill" style="--delay: 0.2s"></div>
+            </div>
+            <span class="skill-pct">75%</span>
           </div>
-          <div class="skill-item reveal">
-            <i class="devicon-php-plain"></i><span>PHP</span>
+          <div class="skill-item reveal" data-pct="78">
+            <i class="devicon-php-plain"></i>
+            <span>PHP</span>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-fill" style="--delay: 0.25s"></div>
+            </div>
+            <span class="skill-pct">78%</span>
           </div>
-          <div class="skill-item2 reveal reveal-delay-1">
-            <i class="devicon-laravel-plain"></i><span>Laravel</span>
+          <div class="skill-item2 reveal reveal-delay-1" data-pct="72">
+            <i class="devicon-laravel-plain"></i>
+            <span>Laravel</span>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-fill" style="--delay: 0.3s"></div>
+            </div>
+            <span class="skill-pct">72%</span>
           </div>
-          <div class="skill-item reveal reveal-delay-2">
-            <i class="devicon-dart-plain"></i><span>Dart</span>
+          <div class="skill-item reveal reveal-delay-2" data-pct="75">
+            <i class="devicon-dart-plain"></i>
+            <span>Dart</span>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-fill" style="--delay: 0.35s"></div>
+            </div>
+            <span class="skill-pct">75%</span>
           </div>
-          <div class="skill-item2 reveal reveal-delay-3">
-            <i class="devicon-flutter-plain"></i><span>Flutter</span>
+          <div class="skill-item2 reveal reveal-delay-3" data-pct="75">
+            <i class="devicon-flutter-plain"></i>
+            <span>Flutter</span>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-fill" style="--delay: 0.4s"></div>
+            </div>
+            <span class="skill-pct">75%</span>
           </div>
-          <div class="skill-item reveal">
-            <i class="devicon-nextjs-plain"></i><span>Next.js</span>
+          <div class="skill-item reveal" data-pct="73">
+            <i class="devicon-nextjs-plain"></i>
+            <span>Next.js</span>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-fill" style="--delay: 0.45s"></div>
+            </div>
+            <span class="skill-pct">73%</span>
           </div>
-          <div class="skill-item2 reveal reveal-delay-1">
-            <i class="devicon-firebase-plain"></i><span>Firebase</span>
+          <div class="skill-item2 reveal reveal-delay-1" data-pct="76">
+            <i class="devicon-firebase-plain"></i>
+            <span>Firebase</span>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-fill" style="--delay: 0.5s"></div>
+            </div>
+            <span class="skill-pct">76%</span>
           </div>
-          <div class="skill-item reveal reveal-delay-2">
-            <i class="devicon-bootstrap-plain"></i><span>Bootstrap</span>
+          <div class="skill-item reveal reveal-delay-2" data-pct="85">
+            <i class="devicon-bootstrap-plain"></i>
+            <span>Bootstrap</span>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-fill" style="--delay: 0.55s"></div>
+            </div>
+            <span class="skill-pct">85%</span>
           </div>
-          <div class="skill-item2 reveal reveal-delay-3">
-            <i class="devicon-tailwindcss-plain"></i><span>Tailwind</span>
+          <div class="skill-item2 reveal reveal-delay-3" data-pct="85">
+            <i class="devicon-tailwindcss-plain"></i>
+            <span>Tailwind</span>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-fill" style="--delay: 0.6s"></div>
+            </div>
+            <span class="skill-pct">85%</span>
           </div>
         </div>
       </div>
@@ -3798,7 +4018,6 @@
 
         ctx.clearRect(0, 0, w, h);
 
-        /* 🔥 SMOOTH CURSOR FOLLOW (INI FIX UTAMA) */
         cursorPos.x += (mouse.x - cursorPos.x) * 0.15;
         cursorPos.y += (mouse.y - cursorPos.y) * 0.15;
 
@@ -3811,7 +4030,6 @@
           p.x += p.vx;
           p.y += p.vy;
 
-          /* FIX BUG: sebelumnya 0 (tidak pernah hilang) */
           p.life -= 0.02;
 
           const rgb = hexToRgb(p.color);
@@ -3993,7 +4211,6 @@
       function orbitAnimate() {
         requestAnimationFrame(orbitAnimate);
 
-        // smooth follow (biar nggak patah)
         p.x += (m.x - p.x) * 0.12;
         p.y += (m.y - p.y) * 0.12;
 
@@ -4004,10 +4221,9 @@
         orbitBig2.style.left = p.x + "px";
         orbitBig2.style.top = p.y + "px";
 
-        // SATELIT MUTER (ini efek tata surya)
         t += 0.04;
 
-        const r = 60; // radius orbit
+        const r = 60;
 
         satellite.style.left = p.x + Math.cos(t) * r + "px";
         satellite.style.top = p.y + Math.sin(t) * r + "px";
@@ -4038,12 +4254,10 @@
         orbitBig2.style.left = p.x + "px";
         orbitBig2.style.top = p.y + "px";
 
-        // SATELIT LAMA (biarin tetap jalan)
         t += 0.04;
         satellite.style.left = p.x + Math.cos(t) * 60 + "px";
         satellite.style.top = p.y + Math.sin(t) * 60 + "px";
 
-        // 🌌 PLANET-PLANET BARU (tata surya mini)
         t2 += 0.02;
 
         satellites.forEach((s, i) => {
@@ -4056,43 +4270,25 @@
 
       orbitAnimate();
     </script>
-    <!-- <script>
-      document.addEventListener(
-  "touchmove",
-  (e) => {
-    const touch = e.touches[0];
+    <script>
+      /* ── Skill bar animate on scroll ── */
+      const skillObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.querySelectorAll("[data-pct]").forEach((card) => {
+                card.querySelector(".skill-bar-fill").style.width =
+                  card.dataset.pct + "%";
+              });
+              skillObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.2 },
+      );
 
-    const x = touch.clientX;
-    const y = touch.clientY;
-
-    /* Floating Letter */
-    touchParticles.push({
-      type: "letter",
-      x,
-      y,
-      vy: -1,
-      life: 1,
-    });
-
-    /* Mini particles */
-    for (let i = 0; i < 4; i++) {
-      touchParticles.push({
-        type: "particle",
-
-        x,
-        y,
-
-        vx: (Math.random() - 0.5) * 3,
-        vy: (Math.random() - 0.5) * 3,
-
-        life: 1,
-
-        color: colors[Math.floor(Math.random() * colors.length)],
-      });
-    }
-  },
-  { passive: true },
-);
-    </script> -->
+      const skillsGrid = document.querySelector(".skills-grid-old");
+      if (skillsGrid) skillObserver.observe(skillsGrid);
+    </script>
   </body>
 </html>
