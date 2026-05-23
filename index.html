@@ -7,8 +7,11 @@
       name="description"
       content="Danish Ubaidillah Ramadhan — Software Developer & Global Explorer"
     />
-    <title>Nishasm</title>
-    <meta name="google-site-verification" content="neJRvfMY-T7PPqr4Y_DG5UUywI8avOKQpjWERxi5OZA" />
+    <title>Nishasm nzPortof</title>
+    <meta
+      name="google-site-verification"
+      content="neJRvfMY-T7PPqr4Y_DG5UUywI8avOKQpjWERxi5OZA"
+    />
     <link rel="icon" href="assets/images/m.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -2193,11 +2196,117 @@
         pointer-events: none;
         z-index: 9999;
       }
+      /* =========================
+   BIG ORBIT SYSTEM (TATA SURYA)
+========================= */
+
+      .cursor-orbit-big,
+      .cursor-orbit-big-2 {
+        position: fixed;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9997;
+        transform: translate(-50%, -50%);
+        border: 1px solid rgba(0, 201, 224, 0.15);
+        box-shadow: 0 0 20px rgba(0, 201, 224, 0.08);
+      }
+
+      .cursor-orbit-big {
+        width: 120px;
+        height: 120px;
+        animation: spin 8s linear infinite;
+      }
+
+      .cursor-orbit-big-2 {
+        width: 180px;
+        height: 180px;
+        border: 1px solid rgba(255, 107, 53, 0.12);
+        animation: spin 12s linear infinite reverse;
+      }
+
+      /* SATELIT / PLANET */
+      .cursor-satellite {
+        position: fixed;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #00c9e0;
+        box-shadow: 0 0 12px rgba(0, 201, 224, 0.8);
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+      }
+
+      /* pakai animasi spin kamu yang sudah ada */
+      @keyframes spin {
+        from {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        to {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+      .cursor-satellite {
+        position: fixed;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+      }
+
+.satellite-1 {
+  background: radial-gradient(circle, #ff9999, #f12b2b, #3b0000);
+  box-shadow:
+    0 0 14px rgba(204, 0, 0, 0.7),
+    0 0 30px rgba(59, 0, 0, 0.6);
+}
+
+.satellite-2 {
+  background: radial-gradient(circle, #afffff, #00cccc, #003333);
+  box-shadow:
+    0 0 14px rgba(0, 204, 204, 0.7),
+    0 0 30px rgba(0, 51, 51, 0.6);
+}
+
+.satellite-3 {
+  background: radial-gradient(circle, #ffd599, #ff8800, #3b1f00);
+  box-shadow:
+    0 0 14px rgba(255, 136, 0, 0.7),
+    0 0 30px rgba(59, 31, 0, 0.6);
+}
+
+.satellite-4 {
+  background: radial-gradient(circle, #ffffff, #cccccc);
+  box-shadow:
+    0 0 14px rgba(255, 255, 255, 0.5),
+    0 0 30px rgba(100, 100, 100, 0.4);
+}
+
+.satellite-5 {
+  background: radial-gradient(circle, #1a1a1a, #000000);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 0 14px rgba(0, 0, 0, 0.9),
+    0 0 30px rgba(255, 255, 255, 0.06);
+}
     </style>
   </head>
   <body>
     <canvas id="cursor-trail"></canvas>
     <div class="cursor-core"></div>
+
+    <!-- TAMBAHAN INI -->
+    <div class="cursor-orbit-big"></div>
+    <div class="cursor-orbit-big-2"></div>
+    <div class="cursor-satellite"></div>
+    <div class="cursor-satellite satellite-1"></div>
+    <div class="cursor-satellite satellite-2"></div>
+    <div class="cursor-satellite satellite-3"></div>
+    <div class="cursor-satellite satellite-4"></div>
+    <div class="cursor-satellite satellite-5"></div>
+
     <canvas id="touch-effects"></canvas>
     <!-- ════════════ HEADER ════════════ -->
     <header class="header" id="mainHeader">
@@ -2371,7 +2480,7 @@
               <div id="cvModal" class="cv-modal" onclick="closeCVModal(event)">
                 <div class="cv-content">
                   <img
-                    src="assets/images/CV Danish Ubaidillah Ramadhan (1).png"
+                    src="assets/images/nish.png"
                     alt="CV Page 1"
                     class="cv-image"
                   />
@@ -3592,23 +3701,24 @@
       );
     </script>
     <script>
-      // semua code kamu...
-
-      /* ── PARTICLE NETWORK ── */
+      /* ─────────────────────────────
+   PARTICLE NETWORK (placeholder)
+──────────────────────────── */
       function createParticleNetwork(canvasId, sectionEl) {
-        // isi function particle
+        // isi sesuai punyamu
       }
 
       createParticleNetwork("hero-canvas", document.getElementById("home"));
-
       createParticleNetwork("skills-canvas", document.getElementById("skills"));
-
       createParticleNetwork(
         "contact-canvas",
         document.getElementById("contact"),
       );
-    </script>
-    <script>
+
+      /* ─────────────────────────────
+   CURSOR + PARTICLE SYSTEM
+──────────────────────────── */
+
       const canvas = document.getElementById("cursor-trail");
       const ctx = canvas.getContext("2d");
 
@@ -3620,54 +3730,56 @@
       canvas.width = w;
       canvas.height = h;
 
-      let mouse = {
-        x: w / 2,
-        y: h / 2,
-      };
+      /* TARGET + SMOOTH POSITION */
+      let mouse = { x: w / 2, y: h / 2 };
+      let cursorPos = { x: w / 2, y: h / 2 };
 
       let particles = [];
 
-      window.addEventListener("resize", () => {
-        w = window.innerWidth;
-        h = window.innerHeight;
+      window.addEventListener(
+        "resize",
+        () => {
+          w = window.innerWidth;
+          h = window.innerHeight;
 
-        canvas.width = w;
-        canvas.height = h;
+          canvas.width = w;
+          canvas.height = h;
 
-        touchCanvas.width = w;
-        touchCanvas.height = h;
-      });
+          touchCanvas.width = w;
+          touchCanvas.height = h;
+        },
+        { passive: true },
+      );
 
       const colors = ["#ff6b35", "#00c9e0", "#ffffff", "#111111"];
 
-      /* =========================
-       DESKTOP CURSOR EFFECT
-    ========================= */
+      /* ─────────────────────────────
+   MOUSE MOVE (LIGHTWEIGHT)
+──────────────────────────── */
+      document.addEventListener(
+        "mousemove",
+        (e) => {
+          mouse.x = e.clientX;
+          mouse.y = e.clientY;
 
-      document.addEventListener("mousemove", (e) => {
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
-
-        cursor.style.transform = `translate3d(${mouse.x}px, ${mouse.y}px, 0) translate(-50%, -50%)`;
-        /* Small particles */
-        for (let i = 0; i < 1; i++) {
+          // 1 particle per move (lebih ringan)
           particles.push({
             x: mouse.x,
             y: mouse.y,
-
-            vx: (Math.random() - 0.5) * 1.8,
-            vy: (Math.random() - 0.5) * 1.8,
-
+            vx: (Math.random() - 0.5) * 1.2,
+            vy: (Math.random() - 0.5) * 1.2,
             life: 1,
-
             color: colors[Math.floor(Math.random() * colors.length)],
           });
-        }
-      });
+        },
+        { passive: true },
+      );
 
+      /* ─────────────────────────────
+   HEX TO RGB
+──────────────────────────── */
       function hexToRgb(hex) {
         const bigint = parseInt(hex.replace("#", ""), 16);
-
         return {
           r: (bigint >> 16) & 255,
           g: (bigint >> 8) & 255,
@@ -3675,45 +3787,49 @@
         };
       }
 
+      /* ─────────────────────────────
+   MAIN ANIMATION (SMOOTH CURSOR FIX)
+──────────────────────────── */
       function animate() {
+        requestAnimationFrame(animate);
+
         ctx.clearRect(0, 0, w, h);
 
+        /* 🔥 SMOOTH CURSOR FOLLOW (INI FIX UTAMA) */
+        cursorPos.x += (mouse.x - cursorPos.x) * 0.15;
+        cursorPos.y += (mouse.y - cursorPos.y) * 0.15;
+
+        cursor.style.transform = `translate3d(${cursorPos.x}px, ${cursorPos.y}px, 0) translate(-50%, -50%)`;
+
+        /* PARTICLES */
         for (let i = 0; i < particles.length; i++) {
           const p = particles[i];
 
           p.x += p.vx;
           p.y += p.vy;
 
-          p.life -= 0.01;
+          /* FIX BUG: sebelumnya 0 (tidak pernah hilang) */
+          p.life -= 0.02;
 
           const rgb = hexToRgb(p.color);
 
-          /* Glow dot */
+          /* DOT */
           ctx.beginPath();
-
           ctx.arc(p.x, p.y, 1.6, 0, Math.PI * 2);
-
-          ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${p.life})`;
-
+          ctx.fillStyle = `rgba(${rgb.r},${rgb.g},${rgb.b},${p.life})`;
           ctx.fill();
 
-          /* Branch line */
+          /* LINE */
           ctx.beginPath();
-
           ctx.moveTo(mouse.x, mouse.y);
 
           const midX = (mouse.x + p.x) / 2 + (Math.random() - 0.5) * 5;
-
           const midY = (mouse.y + p.y) / 2 + (Math.random() - 0.5) * 5;
 
           ctx.quadraticCurveTo(midX, midY, p.x, p.y);
 
-          ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${
-            p.life * 0.28
-          })`;
-
+          ctx.strokeStyle = `rgba(${rgb.r},${rgb.g},${rgb.b},${p.life * 0.28})`;
           ctx.lineWidth = 1;
-
           ctx.stroke();
 
           if (p.life <= 0) {
@@ -3721,13 +3837,13 @@
             i--;
           }
         }
-
-        requestAnimationFrame(animate);
       }
 
       animate();
 
-      /* Hover interaction */
+      /* ─────────────────────────────
+   HOVER EFFECT (OPTIMIZED)
+──────────────────────────── */
       const hoverItems = document.querySelectorAll(
         "a, button, .btn, .project-card, .filter-btn",
       );
@@ -3742,9 +3858,9 @@
         });
       });
 
-      /* =========================
-       MOBILE TOUCH EFFECT
-    ========================= */
+      /* ─────────────────────────────
+   TOUCH EFFECT (MOBILE)
+──────────────────────────── */
 
       const touchCanvas = document.getElementById("touch-effects");
       const tctx = touchCanvas.getContext("2d");
@@ -3754,74 +3870,64 @@
 
       let touchParticles = [];
 
-      document.addEventListener("touchstart", (e) => {
-        const touch = e.touches[0];
+      document.addEventListener(
+        "touchstart",
+        (e) => {
+          const touch = e.touches[0];
+          const x = touch.clientX;
+          const y = touch.clientY;
 
-        const x = touch.clientX;
-        const y = touch.clientY;
-
-        /* Ripple */
-        touchParticles.push({
-          type: "ripple",
-          x,
-          y,
-          radius: 0,
-          life: 1,
-        });
-
-        /* Floating Text */
-        touchParticles.push({
-          type: "letter",
-          x,
-          y,
-          vy: -0.7,
-          life: 1,
-        });
-
-        /* Energy particles */
-        for (let i = 0; i < 7; i++) {
           touchParticles.push({
-            type: "particle",
-
+            type: "ripple",
             x,
             y,
-
-            vx: (Math.random() - 0.5) * 1.2,
-            vy: (Math.random() - 0.5) * 1.2,
-
+            radius: 0,
             life: 1,
-
-            color: colors[Math.floor(Math.random() * colors.length)],
           });
-        }
-      });
+
+          touchParticles.push({
+            type: "letter",
+            x,
+            y,
+            vy: -0.7,
+            life: 1,
+          });
+
+          for (let i = 0; i < 5; i++) {
+            touchParticles.push({
+              type: "particle",
+              x,
+              y,
+              vx: (Math.random() - 0.5) * 1.2,
+              vy: (Math.random() - 0.5) * 1.2,
+              life: 1,
+              color: colors[Math.floor(Math.random() * colors.length)],
+            });
+          }
+        },
+        { passive: true },
+      );
 
       function animateTouchEffects() {
+        requestAnimationFrame(animateTouchEffects);
+
         tctx.clearRect(0, 0, w, h);
 
         for (let i = 0; i < touchParticles.length; i++) {
           const p = touchParticles[i];
 
-          /* Ripple */
           if (p.type === "ripple") {
             p.radius += 1.5;
-
             p.life -= 0.01;
 
             tctx.beginPath();
-
             tctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-
             tctx.strokeStyle = `rgba(0,201,224,${p.life * 0.25})`;
-
             tctx.lineWidth = 2;
-
             tctx.stroke();
           } else if (p.type === "letter") {
-            /* Floating Text */
             p.y += p.vy;
-
-            p.life -= 0.050;
+            p.life -= 0.05;
 
             tctx.font = "700 11px 'Space Grotesk'";
             tctx.textAlign = "center";
@@ -3829,52 +3935,27 @@
             const isDark =
               document.documentElement.getAttribute("data-theme") === "dark";
 
-            const alpha = p.life;
-
             tctx.fillStyle = isDark
-              ? `rgba(255,255,255,${alpha})`
-              : `rgba(15,23,42,${alpha})`;
-
-            tctx.shadowBlur = isDark ? 10 : 6;
-
-            tctx.shadowColor = isDark
-              ? "rgba(255,255,255,0.28)"
-              : "rgba(0,201,224,0.25)";
+              ? `rgba(255,255,255,${p.life})`
+              : `rgba(15,23,42,${p.life})`;
 
             tctx.fillText("ℳocha", p.x, p.y);
-
-            tctx.shadowBlur = 0;
           } else {
-            /* Particles */
             p.x += p.vx;
             p.y += p.vy;
-
             p.life -= 0.025;
 
             const rgb = hexToRgb(p.color);
 
-            /* Dot */
             tctx.beginPath();
-
             tctx.arc(p.x, p.y, 1.8, 0, Math.PI * 2);
-
-            tctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${p.life})`;
-
+            tctx.fillStyle = `rgba(${rgb.r},${rgb.g},${rgb.b},${p.life})`;
             tctx.fill();
 
-            /* Branch */
             tctx.beginPath();
-
             tctx.moveTo(p.x, p.y);
-
-            tctx.lineTo(p.x - p.vx * 1.8, p.y - p.vy * 1.8);
-
-            tctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${
-              p.life * 0.25
-            })`;
-
-            tctx.lineWidth = 1;
-
+            tctx.lineTo(p.x - p.vx * 2, p.y - p.vy * 2);
+            tctx.strokeStyle = `rgba(${rgb.r},${rgb.g},${rgb.b},${p.life * 0.25})`;
             tctx.stroke();
           }
 
@@ -3883,11 +3964,94 @@
             i--;
           }
         }
-
-        requestAnimationFrame(animateTouchEffects);
       }
 
       animateTouchEffects();
+    </script>
+    <script>
+      const orbitBig = document.querySelector(".cursor-orbit-big");
+      const orbitBig2 = document.querySelector(".cursor-orbit-big-2");
+      const satellite = document.querySelector(".cursor-satellite");
+
+      let m = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+      let p = { x: m.x, y: m.y };
+
+      let t = 0;
+
+      document.addEventListener(
+        "mousemove",
+        (e) => {
+          m.x = e.clientX;
+          m.y = e.clientY;
+        },
+        { passive: true },
+      );
+
+      function orbitAnimate() {
+        requestAnimationFrame(orbitAnimate);
+
+        // smooth follow (biar nggak patah)
+        p.x += (m.x - p.x) * 0.12;
+        p.y += (m.y - p.y) * 0.12;
+
+        // orbit center follow
+        orbitBig.style.left = p.x + "px";
+        orbitBig.style.top = p.y + "px";
+
+        orbitBig2.style.left = p.x + "px";
+        orbitBig2.style.top = p.y + "px";
+
+        // SATELIT MUTER (ini efek tata surya)
+        t += 0.04;
+
+        const r = 60; // radius orbit
+
+        satellite.style.left = p.x + Math.cos(t) * r + "px";
+        satellite.style.top = p.y + Math.sin(t) * r + "px";
+      }
+
+      orbitAnimate();
+    </script>
+    <script>
+      const satellites = [
+        { el: document.querySelector(".satellite-1"), r: 60, speed: 0.04 },
+        { el: document.querySelector(".satellite-2"), r: 85, speed: 0.03 },
+        { el: document.querySelector(".satellite-3"), r: 110, speed: 0.05 },
+        { el: document.querySelector(".satellite-4"), r: 140, speed: 0.02 },
+        { el: document.querySelector(".satellite-5"), r: 95, speed: 0.06 },
+      ];
+
+      let t2 = 0;
+
+      function orbitAnimate() {
+        requestAnimationFrame(orbitAnimate);
+
+        p.x += (m.x - p.x) * 0.12;
+        p.y += (m.y - p.y) * 0.12;
+
+        orbitBig.style.left = p.x + "px";
+        orbitBig.style.top = p.y + "px";
+
+        orbitBig2.style.left = p.x + "px";
+        orbitBig2.style.top = p.y + "px";
+
+        // SATELIT LAMA (biarin tetap jalan)
+        t += 0.04;
+        satellite.style.left = p.x + Math.cos(t) * 60 + "px";
+        satellite.style.top = p.y + Math.sin(t) * 60 + "px";
+
+        // 🌌 PLANET-PLANET BARU (tata surya mini)
+        t2 += 0.02;
+
+        satellites.forEach((s, i) => {
+          const angle = t2 * (1 + i * 0.2);
+
+          s.el.style.left = p.x + Math.cos(angle) * s.r + "px";
+          s.el.style.top = p.y + Math.sin(angle) * s.r + "px";
+        });
+      }
+
+      orbitAnimate();
     </script>
     <!-- <script>
       document.addEventListener(
