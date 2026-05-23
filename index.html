@@ -2134,24 +2134,34 @@
       /* Cursor Core */
       .cursor-core {
         position: fixed;
+
         width: 14px;
         height: 14px;
+
         border-radius: 50%;
+
         background: linear-gradient(135deg, #ff6b35, #00c9e0);
+
         pointer-events: none;
-        transform: translate(-50%, -50%);
+
         z-index: 9999;
 
+        left: 0;
+        top: 0;
+
+        transform: translate3d(-50%, -50%, 0);
+
         box-shadow:
-          0 0 12px rgba(255, 107, 53, 0.7),
-          0 0 22px rgba(0, 201, 224, 0.45);
+          0 0 10px rgba(255, 107, 53, 0.55),
+          0 0 18px rgba(0, 201, 224, 0.3);
+
+        will-change: transform;
 
         transition:
-          width 0.2s ease,
-          height 0.2s ease,
-          transform 0.08s linear;
+          width 0.18s ease,
+          height 0.18s ease,
+          box-shadow 0.25s ease;
       }
-
       /* Hover */
       .cursor-hover .cursor-core {
         width: 22px;
@@ -3089,7 +3099,7 @@
 
           <!-- RIGHT -->
           <div class="contact-form-box reveal reveal-delay-1">
-           <form
+            <form
               id="contactForm"
               action="https://formspree.io/f/manrpwwd"
               method="POST"
@@ -3622,23 +3632,30 @@
 
         canvas.width = w;
         canvas.height = h;
+
+        touchCanvas.width = w;
+        touchCanvas.height = h;
       });
 
-      const touchColors = ["#ff6b35", "#00c9e0", "#ffffff", "#111111"];
+      const colors = ["#ff6b35", "#00c9e0", "#ffffff", "#111111"];
+
+      /* =========================
+       DESKTOP CURSOR EFFECT
+    ========================= */
+
       document.addEventListener("mousemove", (e) => {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
 
-        cursor.style.left = mouse.x + "px";
-        cursor.style.top = mouse.y + "px";
-
-        for (let i = 0; i < 3; i++) {
+        cursor.style.transform = `translate3d(${mouse.x}px, ${mouse.y}px, 0) translate(-50%, -50%)`;
+        /* Small particles */
+        for (let i = 0; i < 1; i++) {
           particles.push({
             x: mouse.x,
             y: mouse.y,
 
-            vx: (Math.random() - 0.5) * 2.5,
-            vy: (Math.random() - 0.5) * 2.5,
+            vx: (Math.random() - 0.5) * 1.8,
+            vy: (Math.random() - 0.5) * 1.8,
 
             life: 1,
 
@@ -3666,31 +3683,32 @@
           p.x += p.vx;
           p.y += p.vy;
 
-          p.life -= 0.04;
+          p.life -= 0.01;
 
           const rgb = hexToRgb(p.color);
 
-          /* Particle glow */
+          /* Glow dot */
           ctx.beginPath();
-          ctx.arc(p.x, p.y, 1.8, 0, Math.PI * 2);
+
+          ctx.arc(p.x, p.y, 1.6, 0, Math.PI * 2);
 
           ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${p.life})`;
 
           ctx.fill();
 
-          /* Short branch effect */
+          /* Branch line */
           ctx.beginPath();
 
           ctx.moveTo(mouse.x, mouse.y);
 
-          const midX = (mouse.x + p.x) / 2 + (Math.random() - 0.5) * 6;
+          const midX = (mouse.x + p.x) / 2 + (Math.random() - 0.5) * 5;
 
-          const midY = (mouse.y + p.y) / 2 + (Math.random() - 0.5) * 6;
+          const midY = (mouse.y + p.y) / 2 + (Math.random() - 0.5) * 5;
 
           ctx.quadraticCurveTo(midX, midY, p.x, p.y);
 
           ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${
-            p.life * 0.45
+            p.life * 0.28
           })`;
 
           ctx.lineWidth = 1;
@@ -3722,47 +3740,26 @@
           document.body.classList.remove("cursor-hover");
         });
       });
-    </script>
-    <script>
+
+      /* =========================
+       MOBILE TOUCH EFFECT
+    ========================= */
+
       const touchCanvas = document.getElementById("touch-effects");
       const tctx = touchCanvas.getContext("2d");
 
-      let tw = window.innerWidth;
-      let th = window.innerHeight;
-
-      touchCanvas.width = tw;
-      touchCanvas.height = th;
+      touchCanvas.width = w;
+      touchCanvas.height = h;
 
       let touchParticles = [];
 
-      window.addEventListener("resize", () => {
-        tw = window.innerWidth;
-        th = window.innerHeight;
-
-        touchCanvas.width = tw;
-        touchCanvas.height = th;
-      });
-
-      const colors = ["#ff6b35", "#00c9e0", "#ffffff", "#111111"];
-
-      function hexToRgb(hex) {
-        const bigint = parseInt(hex.replace("#", ""), 16);
-
-        return {
-          r: (bigint >> 16) & 255,
-          g: (bigint >> 8) & 255,
-          b: bigint & 255,
-        };
-      }
-
-      /* Touch Effect */
       document.addEventListener("touchstart", (e) => {
         const touch = e.touches[0];
 
         const x = touch.clientX;
         const y = touch.clientY;
 
-        /* Ripple circle */
+        /* Ripple */
         touchParticles.push({
           type: "ripple",
           x,
@@ -3771,24 +3768,25 @@
           life: 1,
         });
 
-        /* Floating M */
+        /* Floating Text */
         touchParticles.push({
           type: "letter",
           x,
           y,
-          vy: -1.3,
+          vy: -0.7,
           life: 1,
         });
+
         /* Energy particles */
-        for (let i = 0; i < 12; i++) {
+        for (let i = 0; i < 7; i++) {
           touchParticles.push({
             type: "particle",
 
             x,
             y,
 
-            vx: (Math.random() - 0.5) * 4,
-            vy: (Math.random() - 0.5) * 4,
+            vx: (Math.random() - 0.5) * 1.2,
+            vy: (Math.random() - 0.5) * 1.2,
 
             life: 1,
 
@@ -3798,64 +3796,80 @@
       });
 
       function animateTouchEffects() {
-        tctx.clearRect(0, 0, tw, th);
+        tctx.clearRect(0, 0, w, h);
 
         for (let i = 0; i < touchParticles.length; i++) {
           const p = touchParticles[i];
 
           /* Ripple */
           if (p.type === "ripple") {
-            p.radius += 2.2;
-            p.life -= 0.03;
+            p.radius += 1.5;
+
+            p.life -= 0.02;
 
             tctx.beginPath();
 
             tctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
 
-            tctx.strokeStyle = `rgba(0,201,224,${p.life * 0.35})`;
+            tctx.strokeStyle = `rgba(0,201,224,${p.life * 0.25})`;
 
             tctx.lineWidth = 2;
 
             tctx.stroke();
-          } /* Floating M */ else if (p.type === "letter") {
+          } else if (p.type === "letter") {
+            /* Floating Text */
             p.y += p.vy;
 
-            p.life -= 0.02;
+            p.life -= 0.015;
 
-            tctx.font = "bold 18px Poppins";
-
+            tctx.font = "700 11px 'Space Grotesk'";
             tctx.textAlign = "center";
 
-            tctx.fillStyle = `rgba(255,255,255,${p.life})`;
+            const isDark =
+              document.documentElement.getAttribute("data-theme") === "dark";
+
+            const alpha = p.life;
+
+            tctx.fillStyle = isDark
+              ? `rgba(255,255,255,${alpha})`
+              : `rgba(15,23,42,${alpha})`;
+
+            tctx.shadowBlur = isDark ? 10 : 6;
+
+            tctx.shadowColor = isDark
+              ? "rgba(255,255,255,0.28)"
+              : "rgba(0,201,224,0.25)";
 
             tctx.fillText("ℳocha", p.x, p.y);
+
+            tctx.shadowBlur = 0;
           } else {
             /* Particles */
             p.x += p.vx;
             p.y += p.vy;
 
-            p.life -= 0.035;
+            p.life -= 0.025;
 
             const rgb = hexToRgb(p.color);
 
-            /* Glow dot */
+            /* Dot */
             tctx.beginPath();
 
-            tctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+            tctx.arc(p.x, p.y, 1.8, 0, Math.PI * 2);
 
             tctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${p.life})`;
 
             tctx.fill();
 
-            /* Small branch */
+            /* Branch */
             tctx.beginPath();
 
             tctx.moveTo(p.x, p.y);
 
-            tctx.lineTo(p.x - p.vx * 2, p.y - p.vy * 2);
+            tctx.lineTo(p.x - p.vx * 1.8, p.y - p.vy * 1.8);
 
             tctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${
-              p.life * 0.4
+              p.life * 0.25
             })`;
 
             tctx.lineWidth = 1;
