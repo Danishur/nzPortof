@@ -2112,9 +2112,82 @@
           opacity: 1;
         }
       }
+      /* Hide default cursor */
+      body,
+      a,
+      button,
+      input,
+      textarea {
+        cursor: none;
+      }
+
+      /* Canvas */
+      #cursor-trail {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 9998;
+      }
+
+      /* Cursor Core */
+      .cursor-core {
+        position: fixed;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ff6b35, #00c9e0);
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+
+        box-shadow:
+          0 0 12px rgba(255, 107, 53, 0.7),
+          0 0 22px rgba(0, 201, 224, 0.45);
+
+        transition:
+          width 0.2s ease,
+          height 0.2s ease,
+          transform 0.08s linear;
+      }
+
+      /* Hover */
+      .cursor-hover .cursor-core {
+        width: 22px;
+        height: 22px;
+      }
+
+      /* Mobile disable */
+      @media (max-width: 768px) {
+        #cursor-trail,
+        .cursor-core {
+          display: none;
+        }
+
+        body,
+        a,
+        button,
+        input,
+        textarea {
+          cursor: auto;
+        }
+      }
+      /* Mobile touch effect canvas */
+      #touch-effects {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 9999;
+      }
     </style>
   </head>
   <body>
+    <canvas id="cursor-trail"></canvas>
+    <div class="cursor-core"></div>
+    <canvas id="touch-effects"></canvas>
     <!-- ════════════ HEADER ════════════ -->
     <header class="header" id="mainHeader">
       <div class="container">
@@ -3016,75 +3089,66 @@
 
           <!-- RIGHT -->
           <div class="contact-form-box reveal reveal-delay-1">
-            <form
+           <form
               id="contactForm"
               action="https://formspree.io/f/manrpwwd"
               method="POST"
             >
               <div class="form-row">
                 <div class="form-group">
-                  <label>Full Name</label>
-
-                  <input
+                  <label>Full Name</label
+                  ><input
                     type="text"
                     name="name"
                     required
-                    placeholder="Your name"
+                    placeholder="Yaa name"
                   />
                 </div>
-
                 <div class="form-group">
-                  <label>Email Address</label>
-
-                  <input
+                  <label>Email Address</label
+                  ><input
                     type="email"
                     name="email"
                     required
-                    placeholder="your@email.com"
+                    placeholder="Yaa@email.com"
                   />
                 </div>
               </div>
-
               <div class="form-row">
                 <div class="form-group">
-                  <label>Phone / WhatsApp</label>
-
-                  <input
+                  <label>Phone / WhatsApp</label
+                  ><input
                     type="tel"
                     name="phone"
                     placeholder="+62 8XX-XXXX-XXXX"
                   />
                 </div>
-
                 <div class="form-group">
-                  <label>Subject</label>
-
-                  <input
+                  <label>Subject</label
+                  ><input
                     type="text"
                     name="subject"
-                    placeholder="Project inquiry..."
+                    placeholder="Project inquiry, collaboration..."
                   />
                 </div>
               </div>
-
               <div class="form-group">
-                <label>Message</label>
-
-                <textarea
+                <label>Message</label
+                ><textarea
                   name="message"
                   required
-                  placeholder="Tell me about your project..."
+                  placeholder="Tell me about your project or idea..."
                 ></textarea>
               </div>
-
               <button
                 type="submit"
                 class="btn btn-primary"
                 style="width: 100%; justify-content: center"
+                id="formSubmit"
               >
-                <i class="fas fa-paper-plane"></i>
-                Send Message
+                <i class="fas fa-paper-plane"></i>Send Message
               </button>
+              <div class="form-msg" id="formMsg"></div>
             </form>
           </div>
         </div>
@@ -3533,5 +3597,320 @@
         document.getElementById("contact"),
       );
     </script>
+    <script>
+      const canvas = document.getElementById("cursor-trail");
+      const ctx = canvas.getContext("2d");
+
+      const cursor = document.querySelector(".cursor-core");
+
+      let w = window.innerWidth;
+      let h = window.innerHeight;
+
+      canvas.width = w;
+      canvas.height = h;
+
+      let mouse = {
+        x: w / 2,
+        y: h / 2,
+      };
+
+      let particles = [];
+
+      window.addEventListener("resize", () => {
+        w = window.innerWidth;
+        h = window.innerHeight;
+
+        canvas.width = w;
+        canvas.height = h;
+      });
+
+      const touchColors = ["#ff6b35", "#00c9e0", "#ffffff", "#111111"];
+      document.addEventListener("mousemove", (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+
+        cursor.style.left = mouse.x + "px";
+        cursor.style.top = mouse.y + "px";
+
+        for (let i = 0; i < 3; i++) {
+          particles.push({
+            x: mouse.x,
+            y: mouse.y,
+
+            vx: (Math.random() - 0.5) * 2.5,
+            vy: (Math.random() - 0.5) * 2.5,
+
+            life: 1,
+
+            color: colors[Math.floor(Math.random() * colors.length)],
+          });
+        }
+      });
+
+      function hexToRgb(hex) {
+        const bigint = parseInt(hex.replace("#", ""), 16);
+
+        return {
+          r: (bigint >> 16) & 255,
+          g: (bigint >> 8) & 255,
+          b: bigint & 255,
+        };
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, w, h);
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+
+          p.x += p.vx;
+          p.y += p.vy;
+
+          p.life -= 0.04;
+
+          const rgb = hexToRgb(p.color);
+
+          /* Particle glow */
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 1.8, 0, Math.PI * 2);
+
+          ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${p.life})`;
+
+          ctx.fill();
+
+          /* Short branch effect */
+          ctx.beginPath();
+
+          ctx.moveTo(mouse.x, mouse.y);
+
+          const midX = (mouse.x + p.x) / 2 + (Math.random() - 0.5) * 6;
+
+          const midY = (mouse.y + p.y) / 2 + (Math.random() - 0.5) * 6;
+
+          ctx.quadraticCurveTo(midX, midY, p.x, p.y);
+
+          ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${
+            p.life * 0.45
+          })`;
+
+          ctx.lineWidth = 1;
+
+          ctx.stroke();
+
+          if (p.life <= 0) {
+            particles.splice(i, 1);
+            i--;
+          }
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      /* Hover interaction */
+      const hoverItems = document.querySelectorAll(
+        "a, button, .btn, .project-card, .filter-btn",
+      );
+
+      hoverItems.forEach((item) => {
+        item.addEventListener("mouseenter", () => {
+          document.body.classList.add("cursor-hover");
+        });
+
+        item.addEventListener("mouseleave", () => {
+          document.body.classList.remove("cursor-hover");
+        });
+      });
+    </script>
+    <script>
+      const touchCanvas = document.getElementById("touch-effects");
+      const tctx = touchCanvas.getContext("2d");
+
+      let tw = window.innerWidth;
+      let th = window.innerHeight;
+
+      touchCanvas.width = tw;
+      touchCanvas.height = th;
+
+      let touchParticles = [];
+
+      window.addEventListener("resize", () => {
+        tw = window.innerWidth;
+        th = window.innerHeight;
+
+        touchCanvas.width = tw;
+        touchCanvas.height = th;
+      });
+
+      const colors = ["#ff6b35", "#00c9e0", "#ffffff", "#111111"];
+
+      function hexToRgb(hex) {
+        const bigint = parseInt(hex.replace("#", ""), 16);
+
+        return {
+          r: (bigint >> 16) & 255,
+          g: (bigint >> 8) & 255,
+          b: bigint & 255,
+        };
+      }
+
+      /* Touch Effect */
+      document.addEventListener("touchstart", (e) => {
+        const touch = e.touches[0];
+
+        const x = touch.clientX;
+        const y = touch.clientY;
+
+        /* Ripple circle */
+        touchParticles.push({
+          type: "ripple",
+          x,
+          y,
+          radius: 0,
+          life: 1,
+        });
+
+        /* Floating M */
+        touchParticles.push({
+          type: "letter",
+          x,
+          y,
+          vy: -1.3,
+          life: 1,
+        });
+        /* Energy particles */
+        for (let i = 0; i < 12; i++) {
+          touchParticles.push({
+            type: "particle",
+
+            x,
+            y,
+
+            vx: (Math.random() - 0.5) * 4,
+            vy: (Math.random() - 0.5) * 4,
+
+            life: 1,
+
+            color: colors[Math.floor(Math.random() * colors.length)],
+          });
+        }
+      });
+
+      function animateTouchEffects() {
+        tctx.clearRect(0, 0, tw, th);
+
+        for (let i = 0; i < touchParticles.length; i++) {
+          const p = touchParticles[i];
+
+          /* Ripple */
+          if (p.type === "ripple") {
+            p.radius += 2.2;
+            p.life -= 0.03;
+
+            tctx.beginPath();
+
+            tctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+
+            tctx.strokeStyle = `rgba(0,201,224,${p.life * 0.35})`;
+
+            tctx.lineWidth = 2;
+
+            tctx.stroke();
+          } /* Floating M */ else if (p.type === "letter") {
+            p.y += p.vy;
+
+            p.life -= 0.02;
+
+            tctx.font = "bold 18px Poppins";
+
+            tctx.textAlign = "center";
+
+            tctx.fillStyle = `rgba(255,255,255,${p.life})`;
+
+            tctx.fillText("ℳocha", p.x, p.y);
+          } else {
+            /* Particles */
+            p.x += p.vx;
+            p.y += p.vy;
+
+            p.life -= 0.035;
+
+            const rgb = hexToRgb(p.color);
+
+            /* Glow dot */
+            tctx.beginPath();
+
+            tctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+
+            tctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${p.life})`;
+
+            tctx.fill();
+
+            /* Small branch */
+            tctx.beginPath();
+
+            tctx.moveTo(p.x, p.y);
+
+            tctx.lineTo(p.x - p.vx * 2, p.y - p.vy * 2);
+
+            tctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${
+              p.life * 0.4
+            })`;
+
+            tctx.lineWidth = 1;
+
+            tctx.stroke();
+          }
+
+          if (p.life <= 0) {
+            touchParticles.splice(i, 1);
+            i--;
+          }
+        }
+
+        requestAnimationFrame(animateTouchEffects);
+      }
+
+      animateTouchEffects();
+    </script>
+    <!-- <script>
+      document.addEventListener(
+  "touchmove",
+  (e) => {
+    const touch = e.touches[0];
+
+    const x = touch.clientX;
+    const y = touch.clientY;
+
+    /* Floating Letter */
+    touchParticles.push({
+      type: "letter",
+      x,
+      y,
+      vy: -1,
+      life: 1,
+    });
+
+    /* Mini particles */
+    for (let i = 0; i < 4; i++) {
+      touchParticles.push({
+        type: "particle",
+
+        x,
+        y,
+
+        vx: (Math.random() - 0.5) * 3,
+        vy: (Math.random() - 0.5) * 3,
+
+        life: 1,
+
+        color: colors[Math.floor(Math.random() * colors.length)],
+      });
+    }
+  },
+  { passive: true },
+);
+    </script> -->
   </body>
 </html>
