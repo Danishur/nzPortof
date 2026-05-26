@@ -2421,13 +2421,90 @@
           0 0 5px rgba(255, 255, 255, 0.9),
           0 0 30px rgb(255, 255, 255);
       }
+      .lang-dropdown {
+        position: relative;
+      }
+      .lang-trigger {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 20px;
+        border: 1px solid var(--border-strong);
+        background: var(--surface2);
+        color: var(--text); /* ← ini yg fix dark mode */
+        cursor: pointer;
+        font-size: 0.82rem;
+        font-weight: 600;
+        font-family: var(--font);
+        transition: var(--transition);
+        white-space: nowrap;
+      }
+      .lang-trigger:hover {
+        border-color: var(--primary);
+      }
+      .lang-trigger .arrow {
+        font-size: 0.65rem;
+        color: var(--text-muted);
+        transition: transform 0.25s ease;
+      }
+      .lang-dropdown.open .lang-trigger .arrow {
+        transform: rotate(180deg);
+      }
+      .lang-menu {
+        position: absolute;
+        top: calc(100% + 6px);
+        right: 0;
+        background: var(--surface);
+        border: 1px solid var(--border-strong);
+        border-radius: 10px;
+        overflow: hidden;
+        min-width: 150px;
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
+        opacity: 0;
+        transform: translateY(-8px) scale(0.97);
+        transition:
+          opacity 0.22s ease,
+          transform 0.22s ease;
+        pointer-events: none;
+        z-index: 999;
+      }
+      .lang-dropdown.open .lang-menu {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        pointer-events: all;
+      }
+      .lang-option {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        cursor: pointer;
+        font-size: 0.82rem;
+        color: var(--text);
+        transition: background 0.15s;
+      }
+      .lang-option:hover {
+        background: var(--surface2);
+      }
+      .lang-option.active {
+        color: var(--primary);
+        font-weight: 600;
+      }
+      .lang-option .lang-check {
+        margin-left: auto;
+        font-size: 0.7rem;
+        color: var(--primary);
+        opacity: 0;
+      }
+      .lang-option.active .lang-check {
+        opacity: 1;
+      }
     </style>
   </head>
   <body>
     <canvas id="cursor-trail"></canvas>
     <div class="cursor-core"></div>
-
-    <!-- TAMBAHAN INI -->
     <div class="cursor-orbit-big"></div>
     <div class="cursor-orbit-big-2"></div>
     <div class="cursor-satellite"></div>
@@ -2436,9 +2513,9 @@
     <div class="cursor-satellite satellite-3"></div>
     <div class="cursor-satellite satellite-4"></div>
     <div class="cursor-satellite satellite-5"></div>
-
     <canvas id="touch-effects"></canvas>
-    <!-- ════════════ HEADER ════════════ -->
+
+    <!-- HEADER -->
     <header class="header" id="mainHeader">
       <div class="container">
         <nav class="navbar">
@@ -2446,17 +2523,61 @@
             <span class="logo-nz">nishas</span
             ><span class="logo-portof">Portof</span>
           </a>
-
-          <!-- Desktop links -->
           <ul class="nav-menu" id="navMenu">
-            <li><a href="#home" class="nav-link active">Home</a></li>
-            <li><a href="#about" class="nav-link">About</a></li>
-            <li><a href="#skills" class="nav-link">Skills</a></li>
-            <li><a href="#projects" class="nav-link">Projects</a></li>
-            <li><a href="#experience" class="nav-link">Experience</a></li>
-            <li><a href="#contact" class="nav-link">Contact</a></li>
+            <li>
+              <a href="#home" class="nav-link active" data-i18n="nav.home"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a href="#about" class="nav-link" data-i18n="nav.about">About</a>
+            </li>
+            <li>
+              <a href="#skills" class="nav-link" data-i18n="nav.skills"
+                >Skills</a
+              >
+            </li>
+            <li>
+              <a href="#projects" class="nav-link" data-i18n="nav.projects"
+                >Projects</a
+              >
+            </li>
+            <li>
+              <a href="#experience" class="nav-link" data-i18n="nav.experience"
+                >Experience</a
+              >
+            </li>
+            <li>
+              <a href="#contact" class="nav-link" data-i18n="nav.contact"
+                >Contact</a
+              >
+            </li>
           </ul>
-
+          <div class="lang-dropdown" id="langDrop">
+            <button
+              class="lang-trigger"
+              id="langTrigger"
+              aria-label="Switch language"
+            >
+              <span id="activeLangFlag">🇮🇩</span>
+              <!-- <span id="activeLangName"></span> -->
+              <span class="arrow">▼</span>
+            </button>
+            <div class="lang-menu" id="langMenu">
+              <div class="lang-option active" data-lang="id">
+                <span>🇮🇩</span><span>Indonesia</span
+                ><span class="lang-check">✓</span>
+              </div>
+              <div class="lang-option" data-lang="en">
+                <span>🇬🇧</span><span>English</span
+                ><span class="lang-check">✓</span>
+              </div>
+              <div class="lang-option" data-lang="ja">
+                <span>🇯🇵</span><span>日本語</span
+                ><span class="lang-check">✓</span>
+              </div>
+            </div>
+          </div>
           <div class="nav-controls">
             <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">
               <span class="theme-icon sun"><i class="fas fa-sun"></i></span>
@@ -2474,10 +2595,9 @@
       </div>
     </header>
 
-    <!-- Overlay -->
     <div class="nav-overlay" id="navOverlay"></div>
 
-    <!-- ════════════ MOBILE DRAWER ════════════ -->
+    <!-- MOBILE DRAWER -->
     <aside class="mobile-drawer" id="mobileDrawer">
       <div class="drawer-header">
         <a href="#home" class="drawer-logo" id="drawerLogo">
@@ -2491,54 +2611,51 @@
           <i class="fas fa-times"></i>
         </button>
       </div>
-
       <ul class="drawer-nav" id="drawerNav">
         <li>
-          <a href="#home" class="drawer-link active" data-section="home">
-            <span class="dl-num">01</span>
-            <span class="dl-label">Home</span>
-            <i class="fas fa-arrow-right dl-arrow"></i>
-          </a>
+          <a href="#home" class="drawer-link active" data-section="home"
+            ><span class="dl-num">01</span
+            ><span class="dl-label" data-i18n="nav.home">Home</span
+            ><i class="fas fa-arrow-right dl-arrow"></i
+          ></a>
         </li>
         <li>
-          <a href="#about" class="drawer-link" data-section="about">
-            <span class="dl-num">02</span>
-            <span class="dl-label">About</span>
-            <i class="fas fa-arrow-right dl-arrow"></i>
-          </a>
+          <a href="#about" class="drawer-link" data-section="about"
+            ><span class="dl-num">02</span
+            ><span class="dl-label" data-i18n="nav.about">About</span
+            ><i class="fas fa-arrow-right dl-arrow"></i
+          ></a>
         </li>
         <li>
-          <a href="#skills" class="drawer-link" data-section="skills">
-            <span class="dl-num">03</span>
-            <span class="dl-label">Skills</span>
-            <i class="fas fa-arrow-right dl-arrow"></i>
-          </a>
+          <a href="#skills" class="drawer-link" data-section="skills"
+            ><span class="dl-num">03</span
+            ><span class="dl-label" data-i18n="nav.skills">Skills</span
+            ><i class="fas fa-arrow-right dl-arrow"></i
+          ></a>
         </li>
         <li>
-          <a href="#projects" class="drawer-link" data-section="projects">
-            <span class="dl-num">04</span>
-            <span class="dl-label">Projects</span>
-            <i class="fas fa-arrow-right dl-arrow"></i>
-          </a>
+          <a href="#projects" class="drawer-link" data-section="projects"
+            ><span class="dl-num">04</span
+            ><span class="dl-label" data-i18n="nav.projects">Projects</span
+            ><i class="fas fa-arrow-right dl-arrow"></i
+          ></a>
         </li>
         <li>
-          <a href="#experience" class="drawer-link" data-section="experience">
-            <span class="dl-num">05</span>
-            <span class="dl-label">Experience</span>
-            <i class="fas fa-arrow-right dl-arrow"></i>
-          </a>
+          <a href="#experience" class="drawer-link" data-section="experience"
+            ><span class="dl-num">05</span
+            ><span class="dl-label" data-i18n="nav.experience">Experience</span
+            ><i class="fas fa-arrow-right dl-arrow"></i
+          ></a>
         </li>
         <li>
-          <a href="#contact" class="drawer-link" data-section="contact">
-            <span class="dl-num">06</span>
-            <span class="dl-label">Contact</span>
-            <i class="fas fa-arrow-right dl-arrow"></i>
-          </a>
+          <a href="#contact" class="drawer-link" data-section="contact"
+            ><span class="dl-num">06</span
+            ><span class="dl-label" data-i18n="nav.contact">Contact</span
+            ><i class="fas fa-arrow-right dl-arrow"></i
+          ></a>
         </li>
       </ul>
-
       <div class="drawer-divider"></div>
-
       <div class="drawer-footer">
         <div class="drawer-footer-lbl">Connect with me</div>
         <div class="drawer-soc-row">
@@ -2573,7 +2690,7 @@
       </div>
     </aside>
 
-    <!-- ════════════ HERO ════════════ -->
+    <!-- HERO -->
     <section id="home" class="hero">
       <canvas id="hero-canvas"></canvas>
       <div class="hero-bg"></div>
@@ -2582,7 +2699,7 @@
           <div class="hero-text">
             <div class="hero-avail-badge">
               <span class="dot-green"></span>
-              <span>Available for opportunities</span>
+              <span data-i18n="hero.badge">Available for opportunities</span>
             </div>
             <div class="hero-greeting">
               <span class="greet-text" id="greetText">Hello</span>
@@ -2590,11 +2707,12 @@
               <span class="greet-cursor"></span>
             </div>
             <h1 class="hero-title">
-              Danish Ubaidillah<br />
-              <span class="line2">Ramadhan</span>
+              Danish Ubaidillah<br /><span class="line2">Ramadhan</span>
             </h1>
-            <p class="hero-tagline">Software Developer &amp; Global Explorer</p>
-            <p class="hero-desc">
+            <p class="hero-tagline" data-i18n="hero.tagline">
+              Software Developer &amp; Global Explorer
+            </p>
+            <p class="hero-desc" data-i18n="hero.desc">
               I craft precise, scalable digital experiences — from mobile apps
               to full-stack platforms — informed by a global perspective shaped
               across 20+ countries.
@@ -2605,7 +2723,8 @@
                 class="btn btn-primary"
                 onclick="openCVModal()"
               >
-                <i class="fas fa-file-alt"></i> View My CV
+                <i class="fas fa-file-alt"></i>
+                <span data-i18n="hero.cv">View My CV</span>
               </a>
               <div id="cvModal" class="cv-modal" onclick="closeCVModal(event)">
                 <div class="cv-content">
@@ -2621,22 +2740,29 @@
                   />
                 </div>
               </div>
-              <a href="#contact" class="btn btn-ghost"
-                ><i class="fas fa-paper-plane"></i>Get in Touch</a
-              >
+              <a href="#contact" class="btn btn-ghost">
+                <i class="fas fa-paper-plane"></i>
+                <span data-i18n="hero.contact">Get in Touch</span>
+              </a>
             </div>
             <div class="hero-stats">
               <div>
                 <div class="hero-stat-num orange">4+</div>
-                <div class="hero-stat-label">Projects</div>
+                <div class="hero-stat-label" data-i18n="hero.stat1">
+                  Projects
+                </div>
               </div>
               <div>
                 <div class="hero-stat-num cyan">20+</div>
-                <div class="hero-stat-label">Countries</div>
+                <div class="hero-stat-label" data-i18n="hero.stat2">
+                  Countries
+                </div>
               </div>
               <div>
                 <div class="hero-stat-num orange">200+</div>
-                <div class="hero-stat-label">Students</div>
+                <div class="hero-stat-label" data-i18n="hero.stat3">
+                  Students
+                </div>
               </div>
             </div>
           </div>
@@ -2664,7 +2790,7 @@
             <div class="avail-float">
               <span class="dot-green"></span>
               <span class="code-tag">&lt;/&gt;</span>
-              <span>Available for hire</span>
+              <span data-i18n="avail.hire">Available for hire</span>
             </div>
           </div>
         </div>
@@ -2682,7 +2808,7 @@
       </a>
     </section>
 
-    <!-- ════════════ ABOUT ════════════ -->
+    <!-- ABOUT -->
     <section id="about" class="section">
       <div class="container">
         <div class="about-grid">
@@ -2696,11 +2822,15 @@
             <div class="about-img-card">
               <div>
                 <div class="about-stat-num orange">20+</div>
-                <div class="about-stat-text">Countries</div>
+                <div class="about-stat-text" data-i18n="hero.stat2">
+                  Countries
+                </div>
               </div>
               <div>
                 <div class="about-stat-num cyan">200+</div>
-                <div class="about-stat-text">Students</div>
+                <div class="about-stat-text" data-i18n="hero.stat3">
+                  Students
+                </div>
               </div>
             </div>
           </div>
@@ -2709,75 +2839,84 @@
               class="section-header"
               style="text-align: left; margin-bottom: 32px"
             >
-              <span class="section-kicker">Who I Am</span>
-              <h2 class="section-title reveal">About Me</h2>
+              <span class="section-kicker" data-i18n="section.about.kicker"
+                >Who I Am</span
+              >
+              <h2 class="section-title reveal" data-i18n="section.about.title">
+                About Me
+              </h2>
             </div>
             <div class="reveal reveal-delay-1">
-              <p>
+              <p data-i18n="about.p1">
                 I am a <strong>Software Developer</strong> who believes that
                 clean architecture and purposeful design are the cornerstones of
-                impactful technology. My approach combines engineering rigor
-                with creative thinking to deliver solutions that genuinely move
-                the needle.
+                impactful technology.
               </p>
-              <p>
+              <p data-i18n="about.p2">
                 Currently deepening my expertise through immersive training at
                 <strong>IDN Backpacker School Sentul</strong> — where technical
                 mastery meets a global mindset.
               </p>
-              <p>
+              <p data-i18n="about.p3">
                 I've traversed <strong>20 countries</strong> across four
                 continents — from tech corridors in Germany to startup hubs in
                 Southeast Asia — and every experience shapes how I empathize,
                 design, and build.
               </p>
-              <p>
-                Countries visited:
-                <strong>Malaysia</strong>, <strong>China</strong>,
-                <strong>Egypt</strong>, <strong>Morocco</strong>,
-                <strong>Netherlands</strong>, <strong>Belgium</strong>,
-                <strong>Germany</strong>, <strong>Czech Republic</strong>,
-                <strong>Austria</strong>, <strong>Slovakia</strong>,
-                <strong>Hungary</strong>, <strong>Serbia</strong>,
-                <strong>Bulgaria</strong>
+              <p data-i18n="about.p4">
+                Countries visited: <strong>Malaysia</strong>,
+                <strong>China</strong>, <strong>Egypt</strong>,
+                <strong>Morocco</strong>, <strong>Netherlands</strong>,
+                <strong>Belgium</strong>, <strong>Germany</strong>,
+                <strong>Czech Republic</strong>, <strong>Austria</strong>,
+                <strong>Slovakia</strong>, <strong>Hungary</strong>,
+                <strong>Serbia</strong>, <strong>Bulgaria</strong>,
                 <strong>Turkey</strong>, <strong>Kuwait</strong>,
                 <strong>Saudi Arabia</strong>, <strong>India</strong>,
                 <strong>Nepal</strong>, <strong>Thailand</strong>,
                 <strong>Laos</strong>, <strong>Vietnam</strong>,
-                <strong>Hong Kong &amp; Macau.</strong>
-                with <strong>Indonesia</strong> always as home base.
+                <strong>Hong Kong &amp; Macau.</strong> with
+                <strong>Indonesia</strong> always as home base.
               </p>
             </div>
             <div class="about-highlights reveal reveal-delay-2">
               <div class="hl-item">
                 <i class="fas fa-layer-group orange"></i>
-                <h4>Full-Stack Dev</h4>
+                <h4 data-i18n="hl.fullstack">Full-Stack Dev</h4>
                 <div class="hero-stat-label">Web & Mobile</div>
               </div>
               <div class="hl-item">
                 <i class="fas fa-graduation-cap cyan"></i>
-                <h4>IDN Backpacker</h4>
+                <h4 data-i18n="hl.idn">IDN Backpacker</h4>
                 <div class="hero-stat-label">Sentul, Indonesia</div>
               </div>
               <div class="hl-item">
                 <i class="fas fa-passport orange"></i>
-                <h4>20+ Countries</h4>
-                <div class="hero-stat-label">Global Explorer</div>
+                <h4 data-i18n="hl.countries">20+ Countries</h4>
+                <div class="hero-stat-label" data-i18n="hl.explorer">
+                  Global Explorer
+                </div>
               </div>
               <div class="hl-item">
                 <i class="fas fa-users orange"></i>
-                <h4>Team Player</h4>
-                <div class="hero-stat-label">Collaborative</div>
+                <h4 data-i18n="hl.team">Team Player</h4>
+                <div class="hero-stat-label" data-i18n="hl.collab">
+                  Collaborative
+                </div>
               </div>
               <div class="hl-item">
                 <i class="fas fa-laptop-code orange"></i>
-                <h4>Tech Trainer</h4>
-                <div class="hero-stat-label">Grow Together</div>
+                <h4 data-i18n="hl.trainer">Tech Trainer</h4>
+                <div class="hero-stat-label" data-i18n="hl.grow">
+                  Grow Together
+                </div>
               </div>
               <div class="hl-item">
                 <i class="fas fa-book-reader orange"></i>
-                <h4>Knowledge Sharer</h4>
-                <div class="hero-stat-label">Learn & Teach</div>
+                <h4 data-i18n="hl.knowledge">Knowledge Sharer</h4>
+                <div class="hero-stat-label" data-i18n="hl.learn">
+                  Learn & Teach
+                </div>
               </div>
             </div>
           </div>
@@ -2785,111 +2924,106 @@
       </div>
     </section>
 
-    <!-- ════════════ SKILLS ════════════ -->
+    <!-- SKILLS -->
     <section id="skills" class="skills-section">
       <canvas id="skills-canvas"></canvas>
       <div class="skills-overlay"></div>
       <div class="container skills-inner">
         <div class="section-header">
-          <span class="section-kicker">Tech Stack</span>
-          <h2 class="section-title reveal">Skills &amp; Technologies</h2>
-          <p class="section-sub reveal reveal-delay-1">
+          <span class="section-kicker" data-i18n="section.skills.kicker"
+            >Tech Stack</span
+          >
+          <h2 class="section-title reveal" data-i18n="section.skills.title">
+            Skills &amp; Technologies
+          </h2>
+          <p
+            class="section-sub reveal reveal-delay-1"
+            data-i18n="section.skills.sub"
+          >
             A curated toolkit built for fast, scalable, and beautiful products
             across web and mobile.
           </p>
         </div>
         <div class="skills-grid-old">
           <div class="skill-item reveal" data-pct="99">
-            <i class="devicon-html5-plain"></i>
-            <span>HTML5</span>
+            <i class="devicon-html5-plain"></i><span>HTML5</span>
             <div class="skill-bar-wrap">
               <div class="skill-bar-fill" style="--delay: 0s"></div>
             </div>
             <span class="skill-pct">99%</span>
           </div>
           <div class="skill-item2 reveal reveal-delay-1" data-pct="95">
-            <i class="devicon-css3-plain"></i>
-            <span>CSS3</span>
+            <i class="devicon-css3-plain"></i><span>CSS3</span>
             <div class="skill-bar-wrap">
               <div class="skill-bar-fill" style="--delay: 0.1s"></div>
             </div>
             <span class="skill-pct">95%</span>
           </div>
           <div class="skill-item reveal reveal-delay-2" data-pct="87">
-            <i class="devicon-javascript-plain"></i>
-            <span>JavaScript</span>
+            <i class="devicon-javascript-plain"></i><span>JavaScript</span>
             <div class="skill-bar-wrap">
               <div class="skill-bar-fill" style="--delay: 0.15s"></div>
             </div>
             <span class="skill-pct">87%</span>
           </div>
           <div class="skill-item2 reveal reveal-delay-3" data-pct="75">
-            <i class="devicon-react-original"></i>
-            <span>React</span>
+            <i class="devicon-react-original"></i><span>React</span>
             <div class="skill-bar-wrap">
               <div class="skill-bar-fill" style="--delay: 0.2s"></div>
             </div>
             <span class="skill-pct">75%</span>
           </div>
           <div class="skill-item reveal" data-pct="78">
-            <i class="devicon-php-plain"></i>
-            <span>PHP</span>
+            <i class="devicon-php-plain"></i><span>PHP</span>
             <div class="skill-bar-wrap">
               <div class="skill-bar-fill" style="--delay: 0.25s"></div>
             </div>
             <span class="skill-pct">78%</span>
           </div>
           <div class="skill-item2 reveal reveal-delay-1" data-pct="72">
-            <i class="devicon-laravel-plain"></i>
-            <span>Laravel</span>
+            <i class="devicon-laravel-plain"></i><span>Laravel</span>
             <div class="skill-bar-wrap">
               <div class="skill-bar-fill" style="--delay: 0.3s"></div>
             </div>
             <span class="skill-pct">72%</span>
           </div>
           <div class="skill-item reveal reveal-delay-2" data-pct="75">
-            <i class="devicon-dart-plain"></i>
-            <span>Dart</span>
+            <i class="devicon-dart-plain"></i><span>Dart</span>
             <div class="skill-bar-wrap">
               <div class="skill-bar-fill" style="--delay: 0.35s"></div>
             </div>
             <span class="skill-pct">75%</span>
           </div>
           <div class="skill-item2 reveal reveal-delay-3" data-pct="75">
-            <i class="devicon-flutter-plain"></i>
-            <span>Flutter</span>
+            <i class="devicon-flutter-plain"></i><span>Flutter</span>
             <div class="skill-bar-wrap">
               <div class="skill-bar-fill" style="--delay: 0.4s"></div>
             </div>
             <span class="skill-pct">75%</span>
           </div>
           <div class="skill-item reveal" data-pct="73">
-            <i class="devicon-nextjs-plain"></i>
-            <span>Next.js</span>
+            <i class="devicon-nextjs-plain"></i><span>Next.js</span>
             <div class="skill-bar-wrap">
               <div class="skill-bar-fill" style="--delay: 0.45s"></div>
             </div>
             <span class="skill-pct">73%</span>
           </div>
           <div class="skill-item2 reveal reveal-delay-1" data-pct="76">
-            <i class="devicon-firebase-plain"></i>
-            <span>Firebase</span>
+            <i class="devicon-firebase-plain"></i><span>Firebase</span>
             <div class="skill-bar-wrap">
               <div class="skill-bar-fill" style="--delay: 0.5s"></div>
             </div>
             <span class="skill-pct">76%</span>
           </div>
           <div class="skill-item reveal reveal-delay-2" data-pct="85">
-            <i class="devicon-bootstrap-plain"></i>
-            <span>Bootstrap</span>
+            <i class="devicon-bootstrap-plain"></i><span>Bootstrap</span>
             <div class="skill-bar-wrap">
               <div class="skill-bar-fill" style="--delay: 0.55s"></div>
             </div>
             <span class="skill-pct">85%</span>
           </div>
           <div class="skill-item2 reveal reveal-delay-3" data-pct="85">
-            <i class="devicon-tailwindcss-plain"></i>
-            <span>Tailwind</span>
+            <i class="devicon-tailwindcss-plain"></i><span>Tailwind</span>
             <div class="skill-bar-wrap">
               <div class="skill-bar-fill" style="--delay: 0.6s"></div>
             </div>
@@ -2899,26 +3033,52 @@
       </div>
     </section>
 
-    <!-- ════════════ PROJECTS ════════════ -->
+    <!-- PROJECTS -->
     <section id="projects" class="section">
       <div class="container">
         <div class="section-header">
-          <div class="featured-label">Featured Work</div>
-          <span class="section-kicker">Portfolio</span>
-          <h2 class="section-title reveal">My Projects</h2>
-          <p class="section-sub reveal reveal-delay-1">
+          <div class="featured-label" data-i18n="section.projects.label">
+            Featured Work
+          </div>
+          <span class="section-kicker" data-i18n="section.projects.kicker"
+            >Portfolio</span
+          >
+          <h2 class="section-title reveal" data-i18n="section.projects.title">
+            My Projects
+          </h2>
+          <p
+            class="section-sub reveal reveal-delay-1"
+            data-i18n="section.projects.sub"
+          >
             Selected builds demonstrating cross-platform engineering, real-world
             problem-solving, and design sensibility.
           </p>
         </div>
         <div class="project-filter">
-          <button class="filter-btn active" data-filter="all">
+          <button
+            class="filter-btn active"
+            data-filter="all"
+            data-i18n="section.projects.filter.all"
+          >
             All Projects
           </button>
-          <button class="filter-btn" data-filter="flutter">Flutter</button>
-          <button class="filter-btn" data-filter="web">Web</button>
+          <button
+            class="filter-btn"
+            data-filter="flutter"
+            data-i18n="section.projects.filter.flutter"
+          >
+            Flutter
+          </button>
+          <button
+            class="filter-btn"
+            data-filter="web"
+            data-i18n="section.projects.filter.web"
+          >
+            Web
+          </button>
         </div>
         <div class="projects-grid">
+          <!-- Project 1 -->
           <div class="project-card reveal" data-category="flutter">
             <div class="project-img">
               <img
@@ -2938,8 +3098,10 @@
               </div>
             </div>
             <div class="project-body">
-              <h3 class="project-title">E-Commerce Platform</h3>
-              <p class="project-desc">
+              <h3 class="project-title" data-i18n="proj1.title">
+                E-Commerce Platform
+              </h3>
+              <p class="project-desc" data-i18n="proj1.desc">
                 A fully-featured mobile commerce solution enabling seamless
                 product discovery, intelligent cart management, and secure
                 multi-gateway payment processing — built for performance at
@@ -2956,11 +3118,14 @@
                   href="https://github.com/Danishur/e-commerce_app"
                   class="github-btn"
                   target="_blank"
-                  ><i class="fab fa-github"></i>Source Code</a
+                  ><i class="fab fa-github"></i
+                  ><span data-i18n="proj.source">Source Code</span></a
                 >
               </div>
             </div>
           </div>
+
+          <!-- Project 2 -->
           <div
             class="project-card reveal reveal-delay-1"
             data-category="flutter"
@@ -2983,8 +3148,10 @@
               </div>
             </div>
             <div class="project-body">
-              <h3 class="project-title">OurNews — News App</h3>
-              <p class="project-desc">
+              <h3 class="project-title" data-i18n="proj2.title">
+                OurNews — News App
+              </h3>
+              <p class="project-desc" data-i18n="proj2.desc">
                 A modern news aggregator delivering curated, real-time content
                 across personalized categories with offline caching via SQLite
                 and Firebase-powered push notifications.
@@ -3000,11 +3167,14 @@
                   href="https://github.com/Danishur/ournews_app"
                   class="github-btn"
                   target="_blank"
-                  ><i class="fab fa-github"></i>Source Code</a
+                  ><i class="fab fa-github"></i
+                  ><span data-i18n="proj.source">Source Code</span></a
                 >
               </div>
             </div>
           </div>
+
+          <!-- Project 3 -->
           <div
             class="project-card reveal reveal-delay-2"
             data-category="flutter"
@@ -3027,8 +3197,10 @@
               </div>
             </div>
             <div class="project-body">
-              <h3 class="project-title">OurCampus Wallet</h3>
-              <p class="project-desc">
+              <h3 class="project-title" data-i18n="proj3.title">
+                OurCampus Wallet
+              </h3>
+              <p class="project-desc" data-i18n="proj3.desc">
                 A smart financial companion for students featuring AI-assisted
                 OCR receipt scanning, budget forecasting, automated payment
                 reminders, and visual spending analytics.
@@ -3044,16 +3216,19 @@
                   href="https://github.com/Danishur/-OurCampus_Wallet"
                   class="github-btn"
                   target="_blank"
-                  ><i class="fab fa-github"></i>Source Code</a
+                  ><i class="fab fa-github"></i
+                  ><span data-i18n="proj.source">Source Code</span></a
                 >
               </div>
             </div>
           </div>
+
+          <!-- Project 4 -->
           <div class="project-card reveal reveal-delay-2" data-category="web">
             <div class="project-img">
               <img
                 src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=800&q=80&fit=crop"
-                alt="Royal Snack E-Commerce"
+                alt="Royal Snack"
               />
               <div class="project-overlay">
                 <a
@@ -3068,8 +3243,10 @@
               </div>
             </div>
             <div class="project-body">
-              <h3 class="project-title">Royal Snack — E-Commerce Platform</h3>
-              <p class="project-desc">
+              <h3 class="project-title" data-i18n="proj4.title">
+                Royal Snack — E-Commerce Platform
+              </h3>
+              <p class="project-desc" data-i18n="proj4.desc">
                 A modern full-stack e-commerce platform featuring a responsive
                 storefront, shopping cart, secure payment workflows, JWT
                 authentication, and an integrated admin dashboard built with
@@ -3089,7 +3266,8 @@
                   href="https://github.com/samrafif/Royal-Snack-main"
                   class="github-btn"
                   target="_blank"
-                  ><i class="fab fa-github"></i>Source Code</a
+                  ><i class="fab fa-github"></i
+                  ><span data-i18n="proj.source">Source Code</span></a
                 >
               </div>
             </div>
@@ -3098,25 +3276,35 @@
       </div>
     </section>
 
-    <!-- ════════════ EXPERIENCE ════════════ -->
+    <!-- EXPERIENCE -->
     <section id="experience" class="section exp-section">
       <div class="container">
         <div class="section-header">
-          <span class="section-kicker">Professional Journey</span>
-          <h2 class="section-title reveal">Experience</h2>
-          <p class="section-sub reveal reveal-delay-1">
+          <span class="section-kicker" data-i18n="section.exp.kicker"
+            >Professional Journey</span
+          >
+          <h2 class="section-title reveal" data-i18n="section.exp.title">
+            Experience
+          </h2>
+          <p
+            class="section-sub reveal reveal-delay-1"
+            data-i18n="section.exp.sub"
+          >
             Hands-on technical training delivery across corporate and
             educational institutions — building the next generation of digital
             talent.
           </p>
         </div>
         <div class="timeline">
+          <!-- Exp 1 -->
           <div class="timeline-item reveal">
             <div class="timeline-dot"></div>
             <div class="exp-card">
               <div class="exp-header">
                 <div>
-                  <div class="exp-title">IT Trainer — Web Development</div>
+                  <div class="exp-title" data-i18n="exp1.title">
+                    IT Trainer — Web Development
+                  </div>
                   <div class="exp-company">
                     <i class="fas fa-building"></i>PT. Sidik
                   </div>
@@ -3125,10 +3313,12 @@
                   <div class="exp-date-badge">
                     <i class="fas fa-calendar-alt"></i>Nov 2024
                   </div>
-                  <div class="exp-type">Corporate Training</div>
+                  <div class="exp-type" data-i18n="exp.type.corporate">
+                    Corporate Training
+                  </div>
                 </div>
               </div>
-              <p class="exp-desc">
+              <p class="exp-desc" data-i18n="exp1.desc">
                 Designed and delivered an intensive 3-day corporate training
                 program on modern web development — HTML, CSS, and JavaScript —
                 for professionals at PT. Sidik. Developed real-world
@@ -3144,24 +3334,36 @@
               </div>
               <div class="exp-stats">
                 <span class="exp-stat"
-                  ><strong>5+</strong>&nbsp;Professionals</span
-                ><span class="exp-stat"><strong>1</strong>&nbsp;Batch</span
-                ><span class="exp-stat"
+                  ><strong>5+</strong>&nbsp;<span
+                    data-i18n="exp.stat.professionals"
+                    >Professionals</span
+                  ></span
+                >
+                <span class="exp-stat"
+                  ><strong>1</strong>&nbsp;<span data-i18n="exp.stat.batch"
+                    >Batch</span
+                  ></span
+                >
+                <span class="exp-stat"
                   ><i
                     class="fas fa-clock"
                     style="color: var(--primary); margin-right: 4px"
                   ></i
-                  ><strong>3 Days</strong></span
+                  ><strong data-i18n="exp.stat.3days">3 Days</strong></span
                 >
               </div>
             </div>
           </div>
+
+          <!-- Exp 2 -->
           <div class="timeline-item reveal reveal-delay-1">
             <div class="timeline-dot"></div>
             <div class="exp-card">
               <div class="exp-header">
                 <div>
-                  <div class="exp-title">IT Trainer — Web Development</div>
+                  <div class="exp-title" data-i18n="exp2.title">
+                    IT Trainer — Web Development
+                  </div>
                   <div class="exp-company">
                     <i class="fas fa-school"></i>SMAN 78 Jakarta
                   </div>
@@ -3170,10 +3372,12 @@
                   <div class="exp-date-badge">
                     <i class="fas fa-calendar-alt"></i>Jan 2025
                   </div>
-                  <div class="exp-type">Volunteer</div>
+                  <div class="exp-type" data-i18n="exp.type.volunteer">
+                    Volunteer
+                  </div>
                 </div>
               </div>
-              <p class="exp-desc">
+              <p class="exp-desc" data-i18n="exp2.desc">
                 Facilitated a week-long project-based web development bootcamp
                 for 110+ high school students across 5 classes. Translated
                 complex engineering concepts into hands-on exercises — fostering
@@ -3187,24 +3391,37 @@
                 ><span class="exp-tag">Digital Literacy</span>
               </div>
               <div class="exp-stats">
-                <span class="exp-stat"><strong>110+</strong>&nbsp;Students</span
-                ><span class="exp-stat"><strong>5</strong>&nbsp;Classes</span
-                ><span class="exp-stat"
+                <span class="exp-stat"
+                  ><strong>110+</strong>&nbsp;<span
+                    data-i18n="exp.stat.students"
+                    >Students</span
+                  ></span
+                >
+                <span class="exp-stat"
+                  ><strong>5</strong>&nbsp;<span data-i18n="exp.stat.classes"
+                    >Classes</span
+                  ></span
+                >
+                <span class="exp-stat"
                   ><i
                     class="fas fa-clock"
                     style="color: var(--primary); margin-right: 4px"
                   ></i
-                  ><strong>1 Week</strong></span
+                  ><strong data-i18n="exp.stat.1week">1 Week</strong></span
                 >
               </div>
             </div>
           </div>
+
+          <!-- Exp 3 -->
           <div class="timeline-item reveal reveal-delay-2">
             <div class="timeline-dot"></div>
             <div class="exp-card">
               <div class="exp-header">
                 <div>
-                  <div class="exp-title">IT Trainer — Web Development</div>
+                  <div class="exp-title" data-i18n="exp3.title">
+                    IT Trainer — Web Development
+                  </div>
                   <div class="exp-company">
                     <i class="fas fa-school"></i>SMK Islam Insan Mulia
                   </div>
@@ -3213,10 +3430,12 @@
                   <div class="exp-date-badge">
                     <i class="fas fa-calendar-alt"></i>Jan 2025
                   </div>
-                  <div class="exp-type">Volunteer</div>
+                  <div class="exp-type" data-i18n="exp.type.volunteer">
+                    Volunteer
+                  </div>
                 </div>
               </div>
-              <p class="exp-desc">
+              <p class="exp-desc" data-i18n="exp3.desc">
                 Conducted targeted web development training for vocational
                 students aligned with SMK competency frameworks. Empowered 33+
                 students with portfolio-ready coding skills directly applicable
@@ -3229,24 +3448,36 @@
                 ><span class="exp-tag">Career Readiness</span>
               </div>
               <div class="exp-stats">
-                <span class="exp-stat"><strong>33+</strong>&nbsp;Students</span
-                ><span class="exp-stat"><strong>1</strong>&nbsp;Class</span
-                ><span class="exp-stat"
+                <span class="exp-stat"
+                  ><strong>33+</strong>&nbsp;<span data-i18n="exp.stat.students"
+                    >Students</span
+                  ></span
+                >
+                <span class="exp-stat"
+                  ><strong>1</strong>&nbsp;<span data-i18n="exp.stat.classes"
+                    >Classes</span
+                  ></span
+                >
+                <span class="exp-stat"
                   ><i
                     class="fas fa-clock"
                     style="color: var(--primary); margin-right: 4px"
                   ></i
-                  ><strong>3 Days</strong></span
+                  ><strong data-i18n="exp.stat.3days">3 Days</strong></span
                 >
               </div>
             </div>
           </div>
+
+          <!-- Exp 4 -->
           <div class="timeline-item reveal reveal-delay-3">
             <div class="timeline-dot"></div>
             <div class="exp-card">
               <div class="exp-header">
                 <div>
-                  <div class="exp-title">IT Trainer — Web Development</div>
+                  <div class="exp-title" data-i18n="exp4.title">
+                    IT Trainer — Web Development
+                  </div>
                   <div class="exp-company">
                     <i class="fas fa-school"></i>SMK Hiro
                   </div>
@@ -3255,10 +3486,12 @@
                   <div class="exp-date-badge">
                     <i class="fas fa-calendar-alt"></i>Apr 2025
                   </div>
-                  <div class="exp-type">Volunteer</div>
+                  <div class="exp-type" data-i18n="exp.type.volunteer">
+                    Volunteer
+                  </div>
                 </div>
               </div>
-              <p class="exp-desc">
+              <p class="exp-desc" data-i18n="exp4.desc">
                 Led an intensive 3-day web development workshop for 50+
                 vocational students, bridging theory and industry practice.
                 Students completed tangible portfolio projects by program end,
@@ -3271,24 +3504,34 @@
                 ><span class="exp-tag">Project-Based Learning</span>
               </div>
               <div class="exp-stats">
-                <span class="exp-stat"><strong>50+</strong>&nbsp;Students</span
-                ><span class="exp-stat"><strong>1</strong>&nbsp;Class</span
-                ><span class="exp-stat"
+                <span class="exp-stat"
+                  ><strong>50+</strong>&nbsp;<span data-i18n="exp.stat.students"
+                    >Students</span
+                  ></span
+                >
+                <span class="exp-stat"
+                  ><strong>1</strong>&nbsp;<span data-i18n="exp.stat.classes"
+                    >Classes</span
+                  ></span
+                >
+                <span class="exp-stat"
                   ><i
                     class="fas fa-clock"
                     style="color: var(--primary); margin-right: 4px"
                   ></i
-                  ><strong>3 Days</strong></span
+                  ><strong data-i18n="exp.stat.3days">3 Days</strong></span
                 >
               </div>
             </div>
           </div>
+
+          <!-- Exp 5 -->
           <div class="timeline-item reveal reveal-delay-3">
             <div class="timeline-dot"></div>
             <div class="exp-card">
               <div class="exp-header">
                 <div>
-                  <div class="exp-title">
+                  <div class="exp-title" data-i18n="exp5.title">
                     Full-Stack Developer — Royal Snack E-Commerce Platform
                   </div>
                   <div class="exp-company">
@@ -3300,20 +3543,19 @@
                   <div class="exp-date-badge">
                     <i class="fas fa-calendar-alt"></i>2026
                   </div>
-                  <div class="exp-type">Full-Stack Development</div>
+                  <div class="exp-type" data-i18n="exp.type.fullstack">
+                    Full-Stack Development
+                  </div>
                 </div>
               </div>
-              <p class="exp-desc">
+              <p class="exp-desc" data-i18n="exp5.desc">
                 Collaborated in the development of a full-stack e-commerce
-                platform for Royal Snack, focused on delivering a modern and
-                scalable digital shopping experience. Engineered a responsive
-                storefront using React + Vite with dynamic product catalogs,
-                cart management, and browser-based order tracking. Built and
-                integrated secure RESTful APIs with Node.js and Express.js,
-                implementing JWT authentication, stock and pricing validation,
-                payment proof uploads, and transaction workflows. Also
-                contributed to an administrative dashboard for product
-                management, payment confirmation, and operational monitoring.
+                platform for Royal Snack. Engineered a responsive storefront
+                using React + Vite with dynamic product catalogs, cart
+                management, and order tracking. Built and integrated secure
+                RESTful APIs with Node.js and Express.js, implementing JWT
+                authentication, stock validation, payment proof uploads, and
+                transaction workflows.
               </p>
               <div class="exp-tags">
                 <span class="exp-tag">React</span
@@ -3330,18 +3572,21 @@
               <div class="exp-stats">
                 <span class="exp-stat"
                   ><i class="fas fa-users exp-icon"></i
-                  ><strong>Team</strong>&nbsp;Project</span
+                  ><strong data-i18n="exp.stat.team">Team Project</strong></span
                 >
                 <span class="exp-stat"
                   ><i class="fas fa-layer-group exp-icon"></i
-                  ><strong>Full-Stack</strong>&nbsp;System</span
+                  ><strong data-i18n="exp.stat.fullstack"
+                    >Full-Stack System</strong
+                  ></span
                 >
                 <span class="exp-stat"
                   ><a
                     href="https://github.com/samrafif/Royal-Snack-main"
                     target="_blank"
                     class="exp-link"
-                    ><i class="fab fa-github exp-icon"></i>Repository</a
+                    ><i class="fab fa-github exp-icon"></i
+                    ><span data-i18n="exp.stat.repo">Repository</span></a
                   ></span
                 >
               </div>
@@ -3355,33 +3600,32 @@
     <section id="contact" class="section contact-section">
       <canvas id="contact-canvas"></canvas>
       <div class="contact-overlay"></div>
-
       <div class="container skills-inner">
         <div class="section-header">
-          <span class="section-kicker">Let's Collaborate</span>
-
-          <h2 class="section-title reveal">Get In Touch</h2>
-
-          <p class="section-sub reveal reveal-delay-1">
+          <span class="section-kicker" data-i18n="section.contact.kicker"
+            >Let's Collaborate</span
+          >
+          <h2 class="section-title reveal" data-i18n="section.contact.title">
+            Get In Touch
+          </h2>
+          <p
+            class="section-sub reveal reveal-delay-1"
+            data-i18n="section.contact.sub"
+          >
             Whether you have a project in mind, a collaboration opportunity, or
             simply want to talk tech and travel — my inbox is always open.
           </p>
         </div>
-
         <div class="contact-grid">
-          <!-- LEFT -->
           <div class="contact-info reveal">
-            <h3>Let's Build Something Great</h3>
-
-            <p>
+            <h3 data-i18n="contact.heading">Let's Build Something Great</h3>
+            <p data-i18n="contact.p">
               I'm actively open to new roles, freelance projects, and meaningful
               collaborations. I respond to all inquiries within 24 hours.
             </p>
             <div class="contact-list">
               <div class="contact-item">
-                <div class="ci-icon email">
-                  <i class="fas fa-envelope"></i>
-                </div>
+                <div class="ci-icon email"><i class="fas fa-envelope"></i></div>
                 <div>
                   <div class="ci-label">Email</div>
                   <div class="ci-val">
@@ -3430,8 +3674,6 @@
               </div>
             </div>
           </div>
-
-          <!-- RIGHT -->
           <div class="contact-form-box reveal reveal-delay-1">
             <form
               id="contactForm"
@@ -3440,45 +3682,47 @@
             >
               <div class="form-row">
                 <div class="form-group">
-                  <label>Full Name</label
-                  ><input
+                  <label data-i18n="form.name.label">Full Name</label>
+                  <input
                     type="text"
                     name="name"
                     required
-                    placeholder="Yaa name"
+                    placeholder="Your name"
+                    data-i18n-ph="form.name.ph"
                   />
                 </div>
                 <div class="form-group">
-                  <label>Email Address</label
-                  ><input
+                  <label data-i18n="form.email.label">Email Address</label>
+                  <input
                     type="email"
                     name="email"
                     required
-                    placeholder="Yaa@email.com"
+                    placeholder="you@email.com"
+                    data-i18n-ph="form.email.ph"
                   />
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group">
-                  <label>Phone / WhatsApp</label
-                  ><input
+                  <label data-i18n="form.phone.label">Phone / WhatsApp</label>
+                  <input
                     type="tel"
                     name="phone"
                     placeholder="+62 8XX-XXXX-XXXX"
                   />
                 </div>
                 <div class="form-group">
-                  <label>Subject</label
-                  ><input
+                  <label data-i18n="form.subject.label">Subject</label>
+                  <input
                     type="text"
                     name="subject"
-                    placeholder="Project inquiry, collaboration..."
+                    placeholder="Project inquiry..."
                   />
                 </div>
               </div>
               <div class="form-group">
-                <label>Message</label
-                ><textarea
+                <label data-i18n="form.message.label">Message</label>
+                <textarea
                   name="message"
                   required
                   placeholder="Tell me about your project or idea..."
@@ -3490,7 +3734,8 @@
                 style="width: 100%; justify-content: center"
                 id="formSubmit"
               >
-                <i class="fas fa-paper-plane"></i>Send Message
+                <i class="fas fa-paper-plane"></i>
+                <span data-i18n="form.submit">Send Message</span>
               </button>
               <div class="form-msg" id="formMsg"></div>
             </form>
@@ -3498,7 +3743,7 @@
         </div>
       </div>
     </section>
-    <!-- ════════════ FOOTER ════════════ -->
+    <!-- FOOTER -->
     <footer class="footer">
       <div class="container">
         <div class="footer-grid">
@@ -3507,7 +3752,7 @@
               ><span class="logo-nz">nishas</span
               ><span class="logo-portof">Portof</span></a
             >
-            <p>
+            <p data-i18n="footer.desc">
               Software Developer & Global Explorer building purposeful digital
               experiences — one commit at a time.
             </p>
@@ -3536,18 +3781,20 @@
             </div>
           </div>
           <div class="footer-col">
-            <h5>Navigation</h5>
+            <h5 data-i18n="footer.nav">Navigation</h5>
             <ul>
-              <li><a href="#home">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#skills">Skills</a></li>
-              <li><a href="#projects">Projects</a></li>
-              <li><a href="#experience">Experience</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li><a href="#home" data-i18n="nav.home">Home</a></li>
+              <li><a href="#about" data-i18n="nav.about">About</a></li>
+              <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+              <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+              <li>
+                <a href="#experience" data-i18n="nav.experience">Experience</a>
+              </li>
+              <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
             </ul>
           </div>
           <div class="footer-col">
-            <h5>Tech Stack</h5>
+            <h5 data-i18n="footer.stack">Tech Stack</h5>
             <ul>
               <li><a href="#skills">Flutter &amp; Dart</a></li>
               <li><a href="#skills">React &amp; Next.js</a></li>
@@ -3559,12 +3806,15 @@
         </div>
         <div class="footer-bottom">
           <p>
-            &copy; <span id="year"></span> Danish Ubaidillah Ramadhan. All
-            rights reserved.
+            &copy; <span id="year"></span> Danish Ubaidillah Ramadhan.
+            <span data-i18n="footer.rights">All rights reserved.</span>
           </p>
           <p>
-            Made with eca<i class="fas fa-heart"></i> and
-            <i class="fas fa-code"></i> in Indonesia
+            <span data-i18n="footer.made">Made with</span> eca<i
+              class="fas fa-heart"
+            ></i>
+            and <i class="fas fa-code"></i>
+            <span data-i18n="footer.in">in Indonesia</span>
           </p>
         </div>
       </div>
@@ -4151,7 +4401,7 @@
             p.y += p.vy;
             p.life -= 0.05;
 
-            tctx.font = "700 15px 'Space Grotesk'";
+            tctx.font = "700 7px 'Space Grotesk'";
             tctx.textAlign = "center";
 
             const isDark =
@@ -4290,6 +4540,441 @@
 
       const skillsGrid = document.querySelector(".skills-grid-old");
       if (skillsGrid) skillObserver.observe(skillsGrid);
+    </script>
+    <script>
+      const i18n = {
+        id: {
+          /* NAV */
+          "nav.home": "Home",
+          "nav.about": "Tentang",
+          "nav.skills": "Keahlian",
+          "nav.projects": "Proyek",
+          "nav.experience": "Pengalaman",
+          "nav.contact": "Kontak",
+          /* HERO */
+          "hero.badge": "Tersedia untuk peluang",
+          "hero.tagline": "Software Developer & Penjelajah Dunia",
+          "hero.desc":
+            "Saya membangun pengalaman digital yang presisi dan skalabel — dari aplikasi mobile hingga platform full-stack — didukung perspektif global dari 20+ negara.",
+          "hero.cv": "Lihat CV Saya",
+          "hero.contact": "Hubungi Saya",
+          "hero.stat1": "Proyek",
+          "hero.stat2": "Negara",
+          "hero.stat3": "Siswa",
+          "avail.hire": "Tersedia untuk hire",
+          /* ABOUT */
+          "section.about.kicker": "Siapa Saya",
+          "section.about.title": "Tentang Saya",
+          "about.p1":
+            "Saya adalah <strong>Software Developer</strong> yang percaya bahwa arsitektur bersih dan desain yang bermakna adalah pondasi teknologi berdampak. Pendekatan saya menggabungkan ketelitian rekayasa dengan pemikiran kreatif.",
+          "about.p2":
+            "Saat ini memperdalam keahlian melalui pelatihan intensif di <strong>IDN Backpacker School Sentul</strong> — tempat penguasaan teknis bertemu mindset global.",
+          "about.p3":
+            "Saya telah menjelajahi <strong>20 negara</strong> di empat benua — dari koridor teknologi di Jerman hingga pusat startup di Asia Tenggara — dan setiap pengalaman membentuk cara saya berempati, mendesain, dan membangun.",
+          "about.p4":
+            "Negara yang dikunjungi: <strong>Malaysia</strong>, <strong>China</strong>, <strong>Mesir</strong>, <strong>Maroko</strong>, <strong>Belanda</strong>, <strong>Belgia</strong>, <strong>Jerman</strong>, <strong>Rep. Ceko</strong>, <strong>Austria</strong>, <strong>Slovakia</strong>, <strong>Hungaria</strong>, <strong>Serbia</strong>, <strong>Bulgaria</strong>, <strong>Turki</strong>, <strong>Kuwait</strong>, <strong>Arab Saudi</strong>, <strong>India</strong>, <strong>Nepal</strong>, <strong>Thailand</strong>, <strong>Laos</strong>, <strong>Vietnam</strong>, <strong>Hong Kong &amp; Macau.</strong> dengan <strong>Indonesia</strong> selalu sebagai rumah.",
+          "hl.fullstack": "Full-Stack Dev",
+          "hl.idn": "IDN Backpacker",
+          "hl.countries": "20+ Negara",
+          "hl.explorer": "Penjelajah Dunia",
+          "hl.team": "Tim yang Solid",
+          "hl.collab": "Kolaboratif",
+          "hl.trainer": "Pelatih IT",
+          "hl.grow": "Tumbuh Bersama",
+          "hl.knowledge": "Berbagi Ilmu",
+          "hl.learn": "Belajar & Mengajar",
+          /* SKILLS */
+          "section.skills.kicker": "Tech Stack",
+          "section.skills.title": "Keahlian & Teknologi",
+          "section.skills.sub":
+            "Toolkit terkurasi untuk produk yang cepat, skalabel, dan indah di web dan mobile.",
+          /* PROJECTS */
+          "section.projects.label": "Karya Unggulan",
+          "section.projects.kicker": "Portofolio",
+          "section.projects.title": "Proyek Saya",
+          "section.projects.sub":
+            "Proyek terpilih yang menunjukkan rekayasa lintas platform, pemecahan masalah nyata, dan sensibilitas desain.",
+          "section.projects.filter.all": "Semua Proyek",
+          "section.projects.filter.flutter": "Flutter",
+          "section.projects.filter.web": "Web",
+          /* PROJECT CARDS */
+          "proj1.title": "Platform E-Commerce",
+          "proj1.desc":
+            "Solusi perdagangan mobile lengkap yang memungkinkan penemuan produk yang mulus, manajemen keranjang cerdas, dan pemrosesan pembayaran multi-gateway yang aman — dibangun untuk performa skala besar.",
+          "proj2.title": "OurNews — Aplikasi Berita",
+          "proj2.desc":
+            "Agregator berita modern yang menyajikan konten terkurasi dan real-time di berbagai kategori personal dengan cache offline via SQLite dan notifikasi push berbasis Firebase.",
+          "proj3.title": "OurCampus Wallet",
+          "proj3.desc":
+            "Asisten keuangan cerdas untuk mahasiswa dengan pemindaian struk OCR berbantu AI, perkiraan anggaran, pengingat pembayaran otomatis, dan analitik pengeluaran visual.",
+          "proj4.title": "Royal Snack — Platform E-Commerce",
+          "proj4.desc":
+            "Platform e-commerce full-stack modern dengan storefront responsif, keranjang belanja, alur pembayaran aman, autentikasi JWT, dan dashboard admin terintegrasi menggunakan React, Node.js, dan Express.js.",
+          "proj.source": "Kode Sumber",
+          /* EXPERIENCE */
+          "section.exp.kicker": "Perjalanan Profesional",
+          "section.exp.title": "Pengalaman",
+          "section.exp.sub":
+            "Penyampaian pelatihan teknis langsung di perusahaan dan institusi pendidikan — membangun generasi talenta digital berikutnya.",
+          "exp.type.corporate": "Pelatihan Korporat",
+          "exp.type.volunteer": "Relawan",
+          "exp.type.fullstack": "Pengembangan Full-Stack",
+          "exp1.title": "Pelatih IT — Web Development",
+          "exp1.desc":
+            "Merancang dan menyampaikan program pelatihan korporat intensif 3 hari tentang pengembangan web modern — HTML, CSS, dan JavaScript — untuk para profesional di PT. Sidik. Mengembangkan latihan berbasis proyek dunia nyata yang disesuaikan dengan alur kerja korporat.",
+          "exp2.title": "Pelatih IT — Web Development",
+          "exp2.desc":
+            "Memfasilitasi bootcamp pengembangan web berbasis proyek selama seminggu untuk 110+ siswa SMA di 5 kelas. Menerjemahkan konsep rekayasa kompleks menjadi latihan langsung — menumbuhkan literasi digital dan pemikiran komputasional.",
+          "exp3.title": "Pelatih IT — Web Development",
+          "exp3.desc":
+            "Melaksanakan pelatihan pengembangan web yang ditargetkan untuk siswa vokasi sesuai kerangka kompetensi SMK. Memberdayakan 33+ siswa dengan keterampilan coding siap portofolio yang langsung dapat diterapkan.",
+          "exp4.title": "Pelatih IT — Web Development",
+          "exp4.desc":
+            "Memimpin workshop pengembangan web intensif 3 hari untuk 50+ siswa vokasi, menjembatani teori dan praktik industri. Siswa menyelesaikan proyek portofolio nyata pada akhir program.",
+          "exp5.title":
+            "Full-Stack Developer — Platform E-Commerce Royal Snack",
+          "exp5.desc":
+            "Berkolaborasi dalam pengembangan platform e-commerce full-stack untuk Royal Snack. Membangun storefront responsif menggunakan React + Vite dengan katalog produk dinamis, manajemen keranjang, dan pelacakan pesanan. Mengintegrasikan API RESTful aman dengan Node.js dan Express.js, menerapkan autentikasi JWT, validasi stok, upload bukti pembayaran, dan alur transaksi.",
+          "exp.stat.professionals": "Profesional",
+          "exp.stat.batch": "Batch",
+          "exp.stat.students": "Siswa",
+          "exp.stat.classes": "Kelas",
+          "exp.stat.3days": "3 Hari",
+          "exp.stat.1week": "1 Minggu",
+          "exp.stat.team": "Proyek Tim",
+          "exp.stat.fullstack": "Sistem Full-Stack",
+          "exp.stat.repo": "Repositori",
+          /* CONTACT */
+          "section.contact.kicker": "Mari Berkolaborasi",
+          "section.contact.title": "Hubungi Saya",
+          "section.contact.sub":
+            "Apakah kamu punya proyek, peluang kolaborasi, atau sekadar ingin bicara soal teknologi dan perjalanan — inbox saya selalu terbuka.",
+          "contact.heading": "Ayo Bangun Sesuatu yang Luar Biasa",
+          "contact.p":
+            "Saya terbuka untuk peran baru, proyek freelance, dan kolaborasi bermakna. Saya merespons semua pertanyaan dalam 24 jam.",
+          "form.name.label": "Nama Lengkap",
+          "form.name.ph": "Nama kamu",
+          "form.email.label": "Alamat Email",
+          "form.email.ph": "kamu@email.com",
+          "form.phone.label": "Telepon / WhatsApp",
+          "form.subject.label": "Subjek",
+          "form.message.label": "Pesan",
+          "form.submit": "Kirim Pesan",
+          /* FOOTER */
+          "footer.desc":
+            "Software Developer & Penjelajah Dunia membangun pengalaman digital bermakna — satu commit sekaligus.",
+          "footer.nav": "Navigasi",
+          "footer.stack": "Tech Stack",
+          "footer.rights": "Hak cipta dilindungi.",
+          "footer.made": "Dibuat dengan",
+          "footer.in": "di Indonesia",
+        },
+        en: {
+          "nav.home": "Home",
+          "nav.about": "About",
+          "nav.skills": "Skills",
+          "nav.projects": "Projects",
+          "nav.experience": "Experience",
+          "nav.contact": "Contact",
+          "hero.badge": "Available for opportunities",
+          "hero.tagline": "Software Developer & Global Explorer",
+          "hero.desc":
+            "I craft precise, scalable digital experiences — from mobile apps to full-stack platforms — informed by a global perspective shaped across 20+ countries.",
+          "hero.cv": "View My CV",
+          "hero.contact": "Get in Touch",
+          "hero.stat1": "Projects",
+          "hero.stat2": "Countries",
+          "hero.stat3": "Students",
+          "avail.hire": "Available for hire",
+          "section.about.kicker": "Who I Am",
+          "section.about.title": "About Me",
+          "about.p1":
+            "I am a <strong>Software Developer</strong> who believes that clean architecture and purposeful design are the cornerstones of impactful technology. My approach combines engineering rigor with creative thinking.",
+          "about.p2":
+            "Currently deepening my expertise through immersive training at <strong>IDN Backpacker School Sentul</strong> — where technical mastery meets a global mindset.",
+          "about.p3":
+            "I've traversed <strong>20 countries</strong> across four continents — from tech corridors in Germany to startup hubs in Southeast Asia — and every experience shapes how I empathize, design, and build.",
+          "about.p4":
+            "Countries visited: <strong>Malaysia</strong>, <strong>China</strong>, <strong>Egypt</strong>, <strong>Morocco</strong>, <strong>Netherlands</strong>, <strong>Belgium</strong>, <strong>Germany</strong>, <strong>Czech Republic</strong>, <strong>Austria</strong>, <strong>Slovakia</strong>, <strong>Hungary</strong>, <strong>Serbia</strong>, <strong>Bulgaria</strong>, <strong>Turkey</strong>, <strong>Kuwait</strong>, <strong>Saudi Arabia</strong>, <strong>India</strong>, <strong>Nepal</strong>, <strong>Thailand</strong>, <strong>Laos</strong>, <strong>Vietnam</strong>, <strong>Hong Kong &amp; Macau.</strong> with <strong>Indonesia</strong> always as home base.",
+          "hl.fullstack": "Full-Stack Dev",
+          "hl.idn": "IDN Backpacker",
+          "hl.countries": "20+ Countries",
+          "hl.explorer": "Global Explorer",
+          "hl.team": "Team Player",
+          "hl.collab": "Collaborative",
+          "hl.trainer": "Tech Trainer",
+          "hl.grow": "Grow Together",
+          "hl.knowledge": "Knowledge Sharer",
+          "hl.learn": "Learn & Teach",
+          "section.skills.kicker": "Tech Stack",
+          "section.skills.title": "Skills & Technologies",
+          "section.skills.sub":
+            "A curated toolkit built for fast, scalable, and beautiful products across web and mobile.",
+          "section.projects.label": "Featured Work",
+          "section.projects.kicker": "Portfolio",
+          "section.projects.title": "My Projects",
+          "section.projects.sub":
+            "Selected builds demonstrating cross-platform engineering, real-world problem-solving, and design sensibility.",
+          "section.projects.filter.all": "All Projects",
+          "section.projects.filter.flutter": "Flutter",
+          "section.projects.filter.web": "Web",
+          "proj1.title": "E-Commerce Platform",
+          "proj1.desc":
+            "A fully-featured mobile commerce solution enabling seamless product discovery, intelligent cart management, and secure multi-gateway payment processing — built for performance at scale.",
+          "proj2.title": "OurNews — News App",
+          "proj2.desc":
+            "A modern news aggregator delivering curated, real-time content across personalized categories with offline caching via SQLite and Firebase-powered push notifications.",
+          "proj3.title": "OurCampus Wallet",
+          "proj3.desc":
+            "A smart financial companion for students featuring AI-assisted OCR receipt scanning, budget forecasting, automated payment reminders, and visual spending analytics.",
+          "proj4.title": "Royal Snack — E-Commerce Platform",
+          "proj4.desc":
+            "A modern full-stack e-commerce platform featuring a responsive storefront, shopping cart, secure payment workflows, JWT authentication, and an integrated admin dashboard built with React, Node.js, and Express.js.",
+          "proj.source": "Source Code",
+          "section.exp.kicker": "Professional Journey",
+          "section.exp.title": "Experience",
+          "section.exp.sub":
+            "Hands-on technical training delivery across corporate and educational institutions — building the next generation of digital talent.",
+          "exp.type.corporate": "Corporate Training",
+          "exp.type.volunteer": "Volunteer",
+          "exp.type.fullstack": "Full-Stack Development",
+          "exp1.title": "IT Trainer — Web Development",
+          "exp1.desc":
+            "Designed and delivered an intensive 3-day corporate training program on modern web development — HTML, CSS, and JavaScript — for professionals at PT. Sidik. Developed real-world project-based exercises tailored to corporate workflows, resulting in measurable improvements in digital literacy.",
+          "exp2.title": "IT Trainer — Web Development",
+          "exp2.desc":
+            "Facilitated a week-long project-based web development bootcamp for 110+ high school students across 5 classes. Translated complex engineering concepts into hands-on exercises — fostering digital literacy and computational thinking among the next generation.",
+          "exp3.title": "IT Trainer — Web Development",
+          "exp3.desc":
+            "Conducted targeted web development training for vocational students aligned with SMK competency frameworks. Empowered 33+ students with portfolio-ready coding skills directly applicable to technical employment pathways.",
+          "exp4.title": "IT Trainer — Web Development",
+          "exp4.desc":
+            "Led an intensive 3-day web development workshop for 50+ vocational students, bridging theory and industry practice. Students completed tangible portfolio projects by program end, directly aligned with current employer expectations.",
+          "exp5.title":
+            "Full-Stack Developer — Royal Snack E-Commerce Platform",
+          "exp5.desc":
+            "Collaborated in the development of a full-stack e-commerce platform for Royal Snack. Engineered a responsive storefront using React + Vite with dynamic product catalogs, cart management, and order tracking. Built and integrated secure RESTful APIs with Node.js and Express.js, implementing JWT authentication, stock validation, payment proof uploads, and transaction workflows.",
+          "exp.stat.professionals": "Professionals",
+          "exp.stat.batch": "Batch",
+          "exp.stat.students": "Students",
+          "exp.stat.classes": "Classes",
+          "exp.stat.3days": "3 Days",
+          "exp.stat.1week": "1 Week",
+          "exp.stat.team": "Team Project",
+          "exp.stat.fullstack": "Full-Stack System",
+          "exp.stat.repo": "Repository",
+          "section.contact.kicker": "Let's Collaborate",
+          "section.contact.title": "Get In Touch",
+          "section.contact.sub":
+            "Whether you have a project in mind, a collaboration opportunity, or simply want to talk tech and travel — my inbox is always open.",
+          "contact.heading": "Let's Build Something Great",
+          "contact.p":
+            "I'm actively open to new roles, freelance projects, and meaningful collaborations. I respond to all inquiries within 24 hours.",
+          "form.name.label": "Full Name",
+          "form.name.ph": "Your name",
+          "form.email.label": "Email Address",
+          "form.email.ph": "you@email.com",
+          "form.phone.label": "Phone / WhatsApp",
+          "form.subject.label": "Subject",
+          "form.message.label": "Message",
+          "form.submit": "Send Message",
+          "footer.desc":
+            "Software Developer & Global Explorer building purposeful digital experiences — one commit at a time.",
+          "footer.nav": "Navigation",
+          "footer.stack": "Tech Stack",
+          "footer.rights": "All rights reserved.",
+          "footer.made": "Made with",
+          "footer.in": "in Indonesia",
+        },
+        ja: {
+          "nav.home": "ホーム",
+          "nav.about": "自己紹介",
+          "nav.skills": "スキル",
+          "nav.projects": "プロジェクト",
+          "nav.experience": "経験",
+          "nav.contact": "連絡先",
+          "hero.badge": "機会を求めています",
+          "hero.tagline": "ソフトウェア開発者＆世界探検家",
+          "hero.desc":
+            "モバイルアプリからフルスタックプラットフォームまで、20カ国以上の経験に基づいた精密でスケーラブルなデジタル体験を構築します。",
+          "hero.cv": "CVを見る",
+          "hero.contact": "連絡する",
+          "hero.stat1": "プロジェクト",
+          "hero.stat2": "訪問国",
+          "hero.stat3": "生徒",
+          "avail.hire": "採用募集中",
+          "section.about.kicker": "自己紹介",
+          "section.about.title": "私について",
+          "about.p1":
+            "<strong>ソフトウェア開発者</strong>として、クリーンなアーキテクチャと目的あるデザインが影響力ある技術の基盤だと信じています。エンジニアリングの厳密さと創造的思考を組み合わせています。",
+          "about.p2":
+            "現在、<strong>IDN バックパッカースクール センツル</strong>での集中トレーニングを通じて専門知識を深めています — 技術的熟練とグローバルマインドセットが出会う場所。",
+          "about.p3":
+            "四大陸<strong>20カ国</strong>を旅しました — ドイツのテック回廊から東南アジアのスタートアップハブまで — 全ての経験が共感力、デザイン、開発に活かされています。",
+          "about.p4":
+            "訪問国：<strong>マレーシア</strong>、<strong>中国</strong>、<strong>エジプト</strong>、<strong>モロッコ</strong>、<strong>オランダ</strong>、<strong>ベルギー</strong>、<strong>ドイツ</strong>、<strong>チェコ</strong>、<strong>オーストリア</strong>、<strong>スロバキア</strong>、<strong>ハンガリー</strong>、<strong>セルビア</strong>、<strong>ブルガリア</strong>、<strong>トルコ</strong>、<strong>クウェート</strong>、<strong>サウジアラビア</strong>、<strong>インド</strong>、<strong>ネパール</strong>、<strong>タイ</strong>、<strong>ラオス</strong>、<strong>ベトナム</strong>、<strong>香港・マカオ</strong>。そして<strong>インドネシア</strong>が常にホームベース。",
+          "hl.fullstack": "フルスタック開発",
+          "hl.idn": "IDNバックパッカー",
+          "hl.countries": "20カ国以上",
+          "hl.explorer": "世界探検家",
+          "hl.team": "チームプレイヤー",
+          "hl.collab": "協力的",
+          "hl.trainer": "IT講師",
+          "hl.grow": "共に成長",
+          "hl.knowledge": "知識の共有",
+          "hl.learn": "学び＆教え",
+          "section.skills.kicker": "技術スタック",
+          "section.skills.title": "スキルと技術",
+          "section.skills.sub":
+            "ウェブとモバイル全体で高速、スケーラブル、美しい製品のためのキュレーションされたツールキット。",
+          "section.projects.label": "注目作品",
+          "section.projects.kicker": "ポートフォリオ",
+          "section.projects.title": "プロジェクト",
+          "section.projects.sub":
+            "クロスプラットフォームエンジニアリングと現実的な問題解決を示す厳選されたプロジェクト。",
+          "section.projects.filter.all": "全プロジェクト",
+          "section.projects.filter.flutter": "Flutter",
+          "section.projects.filter.web": "Web",
+          "proj1.title": "Eコマースプラットフォーム",
+          "proj1.desc":
+            "シームレスな商品検索、インテリジェントなカート管理、安全なマルチゲートウェイ決済処理を備えた本格的なモバイルコマースソリューション。",
+          "proj2.title": "OurNews — ニュースアプリ",
+          "proj2.desc":
+            "SQLiteによるオフラインキャッシュとFirebaseのプッシュ通知を備えた、パーソナライズされたカテゴリ別のリアルタイムコンテンツを提供する現代的なニュースアグリゲーター。",
+          "proj3.title": "OurCampusウォレット",
+          "proj3.desc":
+            "AI支援OCRレシートスキャン、予算予測、自動支払いリマインダー、視覚的な支出分析を備えた学生向けスマート財務管理アプリ。",
+          "proj4.title": "Royal Snack — Eコマースプラットフォーム",
+          "proj4.desc":
+            "React、Node.js、Express.jsで構築されたレスポンシブストアフロント、ショッピングカート、安全な決済フロー、JWT認証、管理ダッシュボードを備えたフルスタックECプラットフォーム。",
+          "proj.source": "ソースコード",
+          "section.exp.kicker": "職歴",
+          "section.exp.title": "経験",
+          "section.exp.sub":
+            "企業と教育機関にわたる技術研修の実施 — 次世代デジタル人材の育成。",
+          "exp.type.corporate": "企業研修",
+          "exp.type.volunteer": "ボランティア",
+          "exp.type.fullstack": "フルスタック開発",
+          "exp1.title": "ITトレーナー — Web開発",
+          "exp1.desc":
+            "PT. Sidikの専門家向けに、HTML、CSS、JavaScriptを中心とした3日間の集中企業研修プログラムを設計・実施。企業ワークフローに合わせた実践的なプロジェクト演習を開発しました。",
+          "exp2.title": "ITトレーナー — Web開発",
+          "exp2.desc":
+            "5クラス110名以上の高校生向けに1週間のプロジェクトベースのWeb開発ブートキャンプを実施。複雑なエンジニアリング概念を実践的な演習に翻訳し、デジタルリテラシーと計算的思考を育成しました。",
+          "exp3.title": "ITトレーナー — Web開発",
+          "exp3.desc":
+            "SMKコンピテンシーフレームワークに沿った職業訓練生向けのWeb開発研修を実施。33名以上の学生にポートフォリオ対応のコーディングスキルを習得させました。",
+          "exp4.title": "ITトレーナー — Web開発",
+          "exp4.desc":
+            "50名以上の職業訓練学生向けに3日間の集中Webワークショップを指導。理論と業界実践を橋渡しし、学生は現在の雇用主の期待に合ったポートフォリオプロジェクトを完成させました。",
+          "exp5.title": "フルスタック開発者 — Royal Snack ECプラットフォーム",
+          "exp5.desc":
+            "Royal Snackのフルスタックeコマースプラットフォーム開発に参加。React + Viteを使用したレスポンシブストアフロントを構築し、Node.jsとExpress.jsでJWT認証、在庫検証、支払い処理を含む安全なRESTful APIを実装しました。",
+          "exp.stat.professionals": "専門家",
+          "exp.stat.batch": "バッチ",
+          "exp.stat.students": "生徒",
+          "exp.stat.classes": "クラス",
+          "exp.stat.3days": "3日間",
+          "exp.stat.1week": "1週間",
+          "exp.stat.team": "チームプロジェクト",
+          "exp.stat.fullstack": "フルスタックシステム",
+          "exp.stat.repo": "リポジトリ",
+          "section.contact.kicker": "コラボしよう",
+          "section.contact.title": "お問い合わせ",
+          "section.contact.sub":
+            "プロジェクト、コラボレーション、または技術と旅について話したい場合は、いつでもご連絡ください。",
+          "contact.heading": "素晴らしいものを一緒に作りましょう",
+          "contact.p":
+            "新しい役割、フリーランスプロジェクト、有意義なコラボレーションに積極的です。24時間以内に返信します。",
+          "form.name.label": "氏名",
+          "form.name.ph": "お名前",
+          "form.email.label": "メールアドレス",
+          "form.email.ph": "メール",
+          "form.phone.label": "電話 / WhatsApp",
+          "form.subject.label": "件名",
+          "form.message.label": "メッセージ",
+          "form.submit": "送信",
+          "footer.desc":
+            "ソフトウェア開発者＆世界探検家として、一コミットずつ目的あるデジタル体験を構築しています。",
+          "footer.nav": "ナビゲーション",
+          "footer.stack": "技術スタック",
+          "footer.rights": "無断転載禁止。",
+          "footer.made": "制作：",
+          "footer.in": "インドネシアにて",
+        },
+      };
+
+      const langNames = {
+        id: { flag: "🇮🇩", name: "Indonesia" },
+        en: { flag: "🇬🇧", name: "English" },
+        ja: { flag: "🇯🇵", name: "日本語" },
+      };
+
+      /* Keys yang perlu innerHTML karena ada tag HTML di dalamnya */
+      const htmlKeys = new Set([
+        "about.p1",
+        "about.p2",
+        "about.p3",
+        "about.p4",
+      ]);
+
+      function setLanguage(lang) {
+        localStorage.setItem("lang", lang);
+        const data = i18n[lang];
+
+        const flagEl = document.getElementById("activeLangFlag");
+        const nameEl = document.getElementById("activeLangName");
+        if (flagEl) flagEl.textContent = langNames[lang].flag;
+        if (nameEl) nameEl.textContent = langNames[lang].name;
+
+        document.querySelectorAll(".lang-option").forEach((o) => {
+          o.classList.toggle("active", o.dataset.lang === lang);
+        });
+
+        const allEls = document.querySelectorAll("[data-i18n]");
+
+        allEls.forEach((el) => {
+          el.style.transition = "opacity 0.2s ease, transform 0.2s ease";
+          el.style.opacity = "0";
+          el.style.transform = "translateY(5px)";
+        });
+
+        setTimeout(() => {
+          allEls.forEach((el) => {
+            const key = el.dataset.i18n;
+            const val = data[key];
+            if (!val) return;
+            if (htmlKeys.has(key)) {
+              el.innerHTML = val;
+            } else {
+              el.textContent = val;
+            }
+            el.style.opacity = "1";
+            el.style.transform = "translateY(0)";
+          });
+          document.querySelectorAll("[data-i18n-ph]").forEach((el) => {
+            const val = data[el.dataset.i18nPh];
+            if (val) el.placeholder = val;
+          });
+        }, 200);
+      }
+
+      document
+        .getElementById("langTrigger")
+        .addEventListener("click", function (e) {
+          e.stopPropagation();
+          document.getElementById("langDrop").classList.toggle("open");
+        });
+      document.addEventListener("click", function () {
+        document.getElementById("langDrop").classList.remove("open");
+      });
+      document.querySelectorAll(".lang-option").forEach((opt) => {
+        opt.addEventListener("click", () => setLanguage(opt.dataset.lang));
+      });
+
+      (function () {
+        setLanguage(localStorage.getItem("lang") || "id");
+      })();
     </script>
   </body>
 </html>
