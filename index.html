@@ -2500,6 +2500,16 @@
       .lang-option.active .lang-check {
         opacity: 1;
       }
+      html[dir="rtl"] body {
+        direction: rtl;
+        text-align: right;
+      }
+
+      html[dir="rtl"] .nav-links,
+      html[dir="rtl"] .hero-buttons,
+      html[dir="rtl"] .contact-items {
+        flex-direction: row-reverse;
+      }
     </style>
   </head>
   <body>
@@ -2575,6 +2585,10 @@
               <div class="lang-option" data-lang="ja">
                 <span>🇯🇵</span><span>日本語</span
                 ><span class="lang-check">✓</span>
+              </div>
+              <div class="lang-option" data-lang="ar">
+                <span>🇸🇦</span><span>العربية</span>
+                <span class="lang-check">✓</span>
               </div>
             </div>
           </div>
@@ -5036,12 +5050,181 @@
           "footer.made": "制作",
           "footer.in": "インドネシア",
         },
+        ar: {
+          /* NAV */
+          "nav.home": "الرئيسية",
+          "nav.about": "من أنا",
+          "nav.skills": "المهارات",
+          "nav.projects": "المشاريع",
+          "nav.experience": "الخبرات",
+          "nav.contact": "تواصل",
+
+          /* HERO */
+          "hero.badge": "متاح للفرص",
+          "hero.tagline": "مطور مبتدئ ومستكشف للعالم",
+          "hero.desc":
+            "أحب بناء تجارب رقمية حديثة وسهلة الاستخدام — من تطبيقات الهاتف إلى مواقع الويب المتكاملة — مع الاستمرار في التعلم والتطور كمطور.",
+
+          "hero.cv": "عرض السيرة الذاتية",
+          "hero.contact": "تواصل معي",
+          "hero.stat1": "المشاريع",
+          "hero.stat2": "الدول",
+          "hero.stat3": "الطلاب",
+
+          "avail.hire": "جاهز للتعاون",
+
+          /* ABOUT */
+          "section.about.kicker": "نبذة عني",
+          "section.about.title": "من أنا",
+
+          "about.p1":
+            "أنا <strong>مطور لا يزال يتعلم باستمرار</strong> ومهتم بتطوير الويب وتطبيقات الهاتف. أحب إنشاء واجهات حديثة ومرتبة ومريحة للاستخدام.",
+
+          "about.p2":
+            "أقوم حاليًا بتطوير مهاراتي من خلال تدريب مكثف في <strong>IDN Backpacker School Sentul</strong>، مع الاستمرار في استكشاف التقنيات الجديدة وبناء المشاريع الشخصية.",
+
+          "about.p3":
+            "لدي أيضًا خبرة في استكشاف أكثر من <strong>20 دولة</strong>، مما ساعدني على فهم الثقافات المختلفة وطرق التفكير ووجهات النظر الجديدة.",
+
+          "about.p4":
+            "من بين الدول التي زرتها: <strong>ماليزيا</strong>، <strong>الصين</strong>، <strong>مصر</strong>، <strong>المغرب</strong>، <strong>هولندا</strong>، <strong>ألمانيا</strong>، <strong>تركيا</strong>، <strong>الهند</strong>، <strong>تايلاند</strong> وغيرها — وتبقى <strong>إندونيسيا</strong> دائمًا موطني.",
+
+          "hl.fullstack": "تعلم Full-Stack",
+          "hl.idn": "IDN Backpacker",
+          "hl.countries": "20+ دولة",
+          "hl.explorer": "أحب الاستكشاف",
+          "hl.team": "أحب العمل الجماعي",
+          "hl.collab": "متعاون",
+          "hl.trainer": "مدرب IT",
+          "hl.grow": "أستمر في التطور",
+          "hl.knowledge": "مشاركة المعرفة",
+          "hl.learn": "تعلم وتعليم",
+
+          /* SKILLS */
+          "section.skills.kicker": "التقنيات",
+          "section.skills.title": "المهارات والتقنيات",
+          "section.skills.sub":
+            "التقنيات والأدوات التي أستخدمها للتعلم وبناء مشاريع الويب وتطبيقات الهاتف.",
+
+          /* PROJECTS */
+          "section.projects.label": "مشاريع مميزة",
+          "section.projects.kicker": "الأعمال",
+          "section.projects.title": "مشاريعي",
+
+          "section.projects.sub":
+            "بعض المشاريع التي قمت ببنائها لتطوير مهاراتي وتجربة تقنيات مختلفة.",
+
+          "section.projects.filter.all": "الكل",
+          "section.projects.filter.flutter": "Flutter",
+          "section.projects.filter.web": "Web",
+
+          /* PROJECT CARDS */
+          "proj1.title": "منصة تجارة إلكترونية",
+          "proj1.desc":
+            "حل تجارة إلكترونية متكامل يوفّر استكشافًا سلسًا للمنتجات، وإدارة ذكية للسلة، ومعالجة دفع آمنة متعددة البوابات.",
+
+          "proj2.title": "OurNews — تطبيق أخبار",
+          "proj2.desc":
+            "تطبيق أخبار حديث يقدّم محتوى مخصصًا وفوريًا مع التخزين دون اتصال باستخدام SQLite وإشعارات Firebase.",
+
+          "proj3.title": "OurCampus Wallet",
+          "proj3.desc":
+            "مساعد مالي ذكي للطلاب مع مسح OCR مدعوم بالذكاء الاصطناعي، وتوقع الميزانية، وتذكيرات الدفع التلقائية، وتحليلات الإنفاق.",
+
+          "proj4.title": "Royal Snack — منصة تجارة إلكترونية",
+          "proj4.desc":
+            "منصة تجارة إلكترونية Full-Stack حديثة تضم واجهة متجر متجاوبة، وسلة تسوق، ودفع آمن، ومصادقة JWT، ولوحة تحكم إدارية باستخدام React وNode.js وExpress.js.",
+
+          "proj.source": "الكود المصدري",
+
+          /* EXPERIENCE */
+          "section.exp.kicker": "رحلتي",
+          "section.exp.title": "الخبرات",
+
+          "section.exp.sub":
+            "تقديم تدريبات تقنية عملية في الشركات والمؤسسات التعليمية — للمساهمة في بناء الجيل القادم من المواهب الرقمية.",
+
+          "exp.type.corporate": "تدريب شركات",
+          "exp.type.volunteer": "متطوع",
+          "exp.type.fullstack": "تطوير Full-Stack",
+
+          "exp1.title": "مدرب IT — تطوير الويب",
+          "exp1.desc":
+            "تصميم وتقديم برنامج تدريبي مكثف لمدة 3 أيام حول تطوير الويب الحديث باستخدام HTML وCSS وJavaScript لمتخصصي PT. Sidik.",
+
+          "exp2.title": "مدرب IT — تطوير الويب",
+          "exp2.desc":
+            "تقديم معسكر تدريبي لمدة أسبوع لتطوير الويب قائم على المشاريع لأكثر من 110 طالب في 5 فصول.",
+
+          "exp3.title": "مدرب IT — تطوير الويب",
+          "exp3.desc":
+            "تنفيذ تدريب موجه لطلاب التعليم المهني وفق معايير SMK مع تمكينهم بمهارات برمجية جاهزة لبناء أعمالهم.",
+
+          "exp4.title": "مدرب IT — تطوير الويب",
+          "exp4.desc":
+            "قيادة ورشة تطوير ويب مكثفة لمدة 3 أيام لأكثر من 50 طالبًا مع ربط الجانب النظري بالتطبيق العملي.",
+
+          "exp5.title":
+            "مطور Full-Stack — منصة Royal Snack للتجارة الإلكترونية",
+
+          "exp5.desc":
+            "المشاركة في تطوير منصة تجارة إلكترونية متكاملة لـ Royal Snack باستخدام React + Vite وNode.js وExpress.js مع JWT وإدارة الطلبات والمدفوعات.",
+
+          "exp.stat.professionals": "محترفون",
+          "exp.stat.batch": "دفعة",
+          "exp.stat.students": "طلاب",
+          "exp.stat.classes": "فصول",
+          "exp.stat.3days": "3 أيام",
+          "exp.stat.1week": "أسبوع واحد",
+          "exp.stat.team": "مشروع جماعي",
+          "exp.stat.fullstack": "نظام Full-Stack",
+          "exp.stat.repo": "مستودع",
+
+          /* CONTACT */
+          "section.contact.kicker": "لنتواصل",
+          "section.contact.title": "تواصل معي",
+
+          "section.contact.sub":
+            "إذا كان لديك مشروع أو فكرة أو ترغب بالحديث عن التقنية والسفر، فلا تتردد في التواصل معي.",
+
+          "contact.heading": "لنقم ببناء شيء رائع معًا",
+
+          "contact.p":
+            "أنا منفتح للتعلم، والأعمال الحرة الصغيرة، والتعاون في المشاريع. سأحاول الرد بأسرع وقت ممكن.",
+
+          /* FORM */
+          "form.name.label": "الاسم الكامل",
+          "form.name.ph": "اسمك",
+
+          "form.email.label": "البريد الإلكتروني",
+          "form.email.ph": "you@email.com",
+
+          "form.phone.label": "الهاتف / واتساب",
+
+          "form.subject.label": "الموضوع",
+          "form.subject.ph": "مشروع، تعاون، إلخ...",
+
+          "form.message.label": "الرسالة",
+          "form.message.ph": "أخبرني عن فكرتك أو مشروعك...",
+
+          "form.submit": "إرسال الرسالة",
+
+          /* FOOTER */
+          "footer.desc": "مطور مبتدئ يواصل التعلم لبناء تجارب رقمية حديثة.",
+
+          "footer.nav": "التنقل",
+          "footer.stack": "التقنيات",
+          "footer.rights": "جميع الحقوق محفوظة.",
+          "footer.made": "صنع بـ",
+          "footer.in": "في إندونيسيا",
+        },
       };
 
       const langNames = {
         id: { flag: "🇮🇩", name: "Indonesia" },
         en: { flag: "🇬🇧", name: "English" },
         ja: { flag: "🇯🇵", name: "日本語" },
+        ar: { flag: "🇸🇦", name: "العربية" },
       };
 
       /* Keys yang perlu innerHTML karena ada tag HTML di dalamnya */
@@ -5053,11 +5236,15 @@
       ]);
 
       function setLanguage(lang) {
+        document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+        document.documentElement.lang = lang;
+
         localStorage.setItem("lang", lang);
         const data = i18n[lang];
 
         const flagEl = document.getElementById("activeLangFlag");
         const nameEl = document.getElementById("activeLangName");
+
         if (flagEl) flagEl.textContent = langNames[lang].flag;
         if (nameEl) nameEl.textContent = langNames[lang].name;
 
@@ -5072,7 +5259,6 @@
           el.style.opacity = "0";
           el.style.transform = "translateY(5px)";
         });
-
         setTimeout(() => {
           allEls.forEach((el) => {
             const key = el.dataset.i18n;
