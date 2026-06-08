@@ -734,6 +734,7 @@
         gap: 32px;
         margin-top: 40px;
         padding-top: 32px;
+        padding-bottom: 32px;
         border-top: 1px solid var(--border);
       }
       .hero-stat-num {
@@ -960,7 +961,7 @@
         background: var(--surface);
         border: 1px solid var(--border-strong);
         border-radius: var(--radius-lg);
-        padding: 20px 24px;
+        padding: 20px;
         box-shadow: var(--shadow-hover);
         display: flex;
         gap: 24px;
@@ -2120,6 +2121,75 @@
           display: none;
         }
 
+        .hero-title {
+          text-align: center;
+        }
+
+        .hero-tagline {
+          text-align: center;
+        }
+        .exp-desc-left{
+          text-align: start;
+        }
+
+        .hero-greeting {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          text-align: center;
+          padding: 0rem 5rem;
+        }
+
+        .hero-desc {
+          text-align: center;
+        }
+
+        .hero-stats {
+          padding: 0rem 3rem 3rem;
+        }
+
+        .hero-actions {
+          padding: 0px 7px;
+        }
+
+        .section-header {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+
+        .section-title {
+          text-align: center;
+        }
+
+        .reveal {
+          text-align: center;
+        }
+
+        .exp-header-left {
+          align-items: flex-start !important;
+          text-align: left !important;
+        }
+
+        .exp-meta-left {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start !important;
+          justify-content: flex-start !important;
+          text-align: left !important;
+          width: 100%;
+        }
+
+        .exp-company-left {
+          display: flex;
+          justify-content: flex-start !important;
+          align-items: center;
+          text-align: left !important;
+          gap: 8px;
+        }
+
         .hero-inner,
         .about-grid,
         .contact-grid {
@@ -2165,6 +2235,7 @@
         .hero-stats {
           flex-wrap: wrap;
           gap: 20px;
+          align-items: center;
         }
         .about-img-wrap {
           padding: 0;
@@ -2173,6 +2244,7 @@
           position: relative;
           bottom: auto;
           right: auto;
+          padding: 1rem 5rem;
           margin-top: 16px;
         }
         .footer-grid {
@@ -2717,7 +2789,7 @@
             </div>
             <div class="hero-greeting">
               <span class="greet-text" id="greetText">Hello</span>
-              <span>,&nbsp;I'm</span>
+              <span class="im">,&nbsp;I'm</span>
               <span class="greet-cursor"></span>
             </div>
             <h1 class="hero-title">
@@ -3314,16 +3386,16 @@
           <div class="timeline-item reveal">
             <div class="timeline-dot"></div>
             <div class="exp-card">
-              <div class="exp-header">
+              <div class="exp-header exp-header-left">
                 <div>
                   <div class="exp-title" data-i18n="exp1.title">
                     IT Trainer — Web Development
                   </div>
-                  <div class="exp-company">
+                  <div class="exp-company exp-company-left">
                     <i class="fas fa-building"></i>PT. Sidik
                   </div>
                 </div>
-                <div class="exp-meta">
+                <div class="exp-meta exp-meta-left">
                   <div class="exp-date-badge">
                     <i class="fas fa-calendar-alt"></i>Nov 2024
                   </div>
@@ -3332,7 +3404,7 @@
                   </div>
                 </div>
               </div>
-              <p class="exp-desc" data-i18n="exp1.desc">
+              <p class="exp-desc exp-desc-left" data-i18n="exp1.desc">
                 Designed and delivered an intensive 3-day corporate training
                 program on modern web development — HTML, CSS, and JavaScript —
                 for professionals at PT. Sidik. Developed real-world
@@ -3373,16 +3445,16 @@
           <div class="timeline-item reveal reveal-delay-1">
             <div class="timeline-dot"></div>
             <div class="exp-card">
-              <div class="exp-header">
+              <div class="exp-header exp-header-left">
                 <div>
                   <div class="exp-title" data-i18n="exp2.title">
                     IT Trainer — Web Development
                   </div>
-                  <div class="exp-company">
+                  <div class="exp-company exp-company-left">
                     <i class="fas fa-school"></i>SMAN 78 Jakarta
                   </div>
                 </div>
-                <div class="exp-meta">
+                <div class="exp-meta exp-meta-left">
                   <div class="exp-date-badge">
                     <i class="fas fa-calendar-alt"></i>Jan 2025
                   </div>
@@ -3391,7 +3463,7 @@
                   </div>
                 </div>
               </div>
-              <p class="exp-desc" data-i18n="exp2.desc">
+              <p class="exp-desc exp-desc-left" data-i18n="exp2.desc">
                 Facilitated a week-long project-based web development bootcamp
                 for 110+ high school students across 5 classes. Translated
                 complex engineering concepts into hands-on exercises — fostering
@@ -3436,11 +3508,11 @@
                   <div class="exp-title" data-i18n="exp3.title">
                     IT Trainer — Web Development
                   </div>
-                  <div class="exp-company">
+                  <div class="exp-company exp-company-left">
                     <i class="fas fa-school"></i>SMK Islam Insan Mulia
                   </div>
                 </div>
-                <div class="exp-meta">
+                <div class="exp-meta exp-meta-left">
                   <div class="exp-date-badge">
                     <i class="fas fa-calendar-alt"></i>Jan 2025
                   </div>
@@ -3449,7 +3521,7 @@
                   </div>
                 </div>
               </div>
-              <p class="exp-desc" data-i18n="exp3.desc">
+              <p class="exp-desc exp-desc-left" data-i18n="exp3.desc">
                 Conducted targeted web development training for vocational
                 students aligned with SMK competency frameworks. Empowered 33+
                 students with portfolio-ready coding skills directly applicable
@@ -3487,16 +3559,16 @@
           <div class="timeline-item reveal reveal-delay-3">
             <div class="timeline-dot"></div>
             <div class="exp-card">
-              <div class="exp-header">
+              <div class="exp-header exp-header-left">
                 <div>
                   <div class="exp-title" data-i18n="exp4.title">
                     IT Trainer — Web Development
                   </div>
-                  <div class="exp-company">
+                  <div class="exp-company exp-company-left">
                     <i class="fas fa-school"></i>SMK Hiro
                   </div>
                 </div>
-                <div class="exp-meta">
+                <div class="exp-meta exp-meta-left">
                   <div class="exp-date-badge">
                     <i class="fas fa-calendar-alt"></i>Apr 2025
                   </div>
@@ -3505,7 +3577,7 @@
                   </div>
                 </div>
               </div>
-              <p class="exp-desc" data-i18n="exp4.desc">
+              <p class="exp-desc exp-desc-left" data-i18n="exp4.desc">
                 Led an intensive 3-day web development workshop for 50+
                 vocational students, bridging theory and industry practice.
                 Students completed tangible portfolio projects by program end,
@@ -3543,17 +3615,17 @@
           <div class="timeline-item reveal reveal-delay-3">
             <div class="timeline-dot"></div>
             <div class="exp-card">
-              <div class="exp-header">
+              <div class="exp-header exp-header-left">
                 <div>
                   <div class="exp-title" data-i18n="exp5.title">
                     Full-Stack Developer — Royal Snack E-Commerce Platform
                   </div>
-                  <div class="exp-company">
+                  <div class="exp-company exp-company-left">
                     <i class="fas fa-laptop-code"></i>Freelance / Collaborative
                     Group Project
                   </div>
                 </div>
-                <div class="exp-meta">
+                <div class="exp-meta exp-meta-left">
                   <div class="exp-date-badge">
                     <i class="fas fa-calendar-alt"></i>2026
                   </div>
@@ -3562,7 +3634,7 @@
                   </div>
                 </div>
               </div>
-              <p class="exp-desc" data-i18n="exp5.desc">
+              <p class="exp-desc exp-desc-left" data-i18n="exp5.desc">
                 Collaborated in the development of a full-stack e-commerce
                 platform for Royal Snack. Engineered a responsive storefront
                 using React + Vite with dynamic product catalogs, cart
@@ -4595,7 +4667,7 @@
           /* INDONESIA */
           "about.p4":
             "Beberapa negara yang pernah saya kunjungi antara lain <strong>Malaysia</strong>, <strong>China</strong>, <strong>Mesir</strong>, <strong>Maroko</strong>, <strong>Belanda</strong>, <strong>Belgia</strong>, <strong>Jerman</strong>, <strong>Republik Ceko</strong>, <strong>Austria</strong>, <strong>Slovakia</strong>, <strong>Hungaria</strong>, <strong>Serbia</strong>, <strong>Bulgaria</strong>, <strong>Turki</strong>, <strong>Kuwait</strong>, <strong>Arab Saudi</strong>, <strong>India</strong>, <strong>Nepal</strong>, <strong>Thailand</strong>, <strong>Laos</strong>, <strong>Vietnam</strong>, <strong>Hongkong & Makau</strong>, dengan <strong>Indonesia</strong> yang selalu menjadi rumah.",
-          
+
           "hl.fullstack": "Belajar Full-Stack",
           "hl.idn": "IDN Backpacker",
           "hl.countries": "20+ Negara",
